@@ -7,6 +7,7 @@
 
 #> Header >/
 __all__ = ('CausticASTNode',
+           'BaseStatement',
            'BaseAtom', 'BaseLiteral')
 
 class CausticASTNode:
