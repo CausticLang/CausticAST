@@ -3,7 +3,10 @@
 '''Expression nodes'''
 
 #> Imports
-from .bases import BaseUnaryOperator, BaseBinaryOperator
+from dataclasses import dataclass, fields
+
+from .bases import CausticASTnode
+from .bases import BaseOperator, BaseUnaryOperator, BaseBinaryOperator
 #</Imports
 
 #> Header >/
@@ -20,7 +23,9 @@ __all__ = (# Unary
            ## Logical
            'LogAnd', 'LogOr', 'LogXor',
            ## Bitwise
-           'BitAnd', 'BitOr', 'BitXor', 'LShift', 'RShift')
+           'BitAnd', 'BitOr', 'BitXor', 'LShift', 'RShift',
+           # Ternary
+           'Ternary')
 
 # Unary
 class UPlus(BaseUnaryOperator):
@@ -119,3 +124,11 @@ class LShift(BaseBinaryOperator):
 class RShift(BaseBinaryOperator):
     '''Represents a right-shift operator'''
     __slots__ = ()
+
+# Ternary
+@dataclass(slots=True, kw_only=True)
+class Ternary(BaseOperator):
+    '''Represents a ternary operator'''
+    cmp: CausticASTNode = field(kw_only=False)
+    true: CausticASTNode
+    false: CausticASTNode
