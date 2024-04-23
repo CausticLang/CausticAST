@@ -35,6 +35,7 @@ class WhileStatement(BaseStatement):
     '''Represents a while loop'''
     clause: CausticASTNode
     block: cabc.Sequence[CausticASTNode]
+    do_while: bool = field(default=False, kw_only=True)
 
 # Exception-related
 class RaiseStatement(BaseStatement):
