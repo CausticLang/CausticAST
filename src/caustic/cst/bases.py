@@ -13,6 +13,10 @@ class CausticASTNode:
     '''The base class for all CST nodes'''
     __slots__ = ()
 
+class BaseStatement(CausticASTNode):
+    '''The base class for all statement CST nodes'''
+    __slots__ = ()
+
 class BaseAtom(CausticASTNode):
     '''The base class for all atom CST nodes'''
     __slots__ = ()
