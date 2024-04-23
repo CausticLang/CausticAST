@@ -7,6 +7,7 @@ from dataclasses import dataclass, field
 from collections import abc as cabc
 
 from .bases import CausticASTNode, BaseStatement
+from .block import Block
 #</Imports
 
 #> Header >/
@@ -34,14 +35,14 @@ class ExportStatement(BaseStatement):
 @_dc
 class ForStatement(BaseStatement):
     '''Represents a for loop'''
-    clause: tuple[CausticASTNode, CausticASTNode, CausticASTNode] | CausticASTNode
-    block: cabc.Sequence[CausticASTNode]
+    clause: tuple[Line, Line, Line] | CausticASTNode
+    block: Block
     for_in: bool = field(default=False, kw_only=True)
 @_dc
 class WhileStatement(BaseStatement):
     '''Represents a while loop'''
     clause: CausticASTNode
-    block: cabc.Sequence[CausticASTNode]
+    block: Block
     do_while: bool = field(default=False, kw_only=True)
 
 # Exception-related
@@ -50,12 +51,13 @@ class RaiseStatement(BaseStatement):
     target: CausticASTNode
 class TryStatement(BaseStatement):
     '''Represents an exception-handling statement/block'''
-    block: CausticASTNode
+    block: Block
     catch: CatchStatement = field(kw_only=True)
 class CatchStatement(BaseStatement):
     '''Represents the "catch" part of a `TryStatement`'''
     catches: cabc.Sequence[CausticASTNode]
+    block: Block
 class LowerStatement(BaseStatement):
     '''Represents an exception-ignoring statement/block'''
     lowers: cabc.Sequence[CausticASTNode]
-    block: CausticASTNode
+    block: Block
