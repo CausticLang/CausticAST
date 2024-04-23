@@ -16,7 +16,9 @@ __all__ = (# Unary
            ## Comparison
            'Equality', 'Inequality', 'LessThan', 'GreaterThan', 'LessThanOrEquality', 'GreaterThanOrEquality', 'Nullish'
            ### Aliases
-           'EQ', 'NE', 'LT', 'GT', 'LE', 'GE',)
+           'EQ', 'NE', 'LT', 'GT', 'LE', 'GE',
+           ## Logical
+           'LogAnd', 'LogOr', 'LogXor')
 
 # Unary
 class UPlus(BaseUnaryOperator):
@@ -88,4 +90,14 @@ class GreaterThanOrEquality(BaseBinaryOperator):
 GE = GreaterThanOrEquality
 class Nullish(BaseBinaryOperator):
     '''Represents a nullish comparison (nullish coalescing) operator'''
+    __slots__ = ()
+## Logical
+class LogAnd(BaseBinaryOperator):
+    '''Represents a logical and operator'''
+    __slots__ = ()
+class LogOr(BaseBinaryOperator):
+    '''Represents a logical or operator'''
+    __slots__ = ()
+class LogXor(BaseBinaryOperator):
+    '''Represents a logical exclusive-or operator'''
     __slots__ = ()
