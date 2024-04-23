@@ -15,7 +15,9 @@ from .bases import BaseAtom, BaseLiteral
 #</Imports
 
 #> Header >/
-__slots__ = ('Identifier',)
+__all__ = ('Identifier',
+           'Integer', 'Decimal',
+           'Char', 'Bytes', 'String')
 
 _dc = dataclass(slots=True)
 
