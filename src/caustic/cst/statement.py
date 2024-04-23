@@ -10,18 +10,25 @@ from .bases import CausticASTNode, BaseStatement
 #</Imports
 
 #> Header >/
-__all__ = ('ImportStatement',
+__all__ = ('ImportStatement', 'ExportStatement',
            'ForStatement', 'WhileStatement',
            'RaiseStatement', 'TryStatement', 'CatchStatement', 'LowerStatement')
 
 _dc = dataclass(slots=True)
 
+# External-related
 @_dc
 class ImportStatement(BaseStatement):
     '''Represents an import'''
     target: CausticASTNode
     i_from: CausticASTNode | None = field(default=None, kw_only=True)
     i_as:   CausticASTNode | None = field(default=None, kw_only=True)
+@_dc
+class ExportStatement(BaseStatement):
+    '''Represents an export'''
+    target: CausticASTNode
+    e_as: str | None = field(default=None, kw_only=True)
+    extern: bool = field(default=False, kw_only=True)
 
 # Loop-related
 @_dc
