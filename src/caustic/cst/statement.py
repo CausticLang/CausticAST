@@ -12,6 +12,7 @@ from .block import Block
 
 #> Header >/
 __all__ = ('ImportStatement', 'ExportStatement',
+           'IfStatement', 'ElifStatement', 'ElseStatement',
            'ForStatement', 'WhileStatement',
            'RaiseStatement', 'TryStatement', 'CatchStatement', 'LowerStatement')
 
@@ -30,6 +31,21 @@ class ExportStatement(BaseStatement):
     target: CausticASTNode
     e_as: str | None = field(default=None, kw_only=True)
     extern: bool = field(default=False, kw_only=True)
+
+# Conditional-related
+@_dc
+class IfStatement(BaseStatement):
+    '''Represents an if statement'''
+    condition: CausticASTNode
+    block: Block
+    next: ElifStatement | ElseStatement | None = None
+class ElifStatement(IfStatement):
+    '''Represents an else-if statement'''
+    __slots__ = ()
+@_dc
+class ElseStatement(BaseStatement):
+    '''Represents an else statement'''
+    block: Block
 
 # Loop-related
 @_dc
