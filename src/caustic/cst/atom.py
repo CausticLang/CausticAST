@@ -1,6 +1,10 @@
 #!/bin/python3
 
-'''CST node for atoms (literals, identifiers, etc.)'''
+'''
+    CST node for atoms (literals, identifiers, etc.)
+    Note that atoms are considered subtypes of expressions,
+        A.E. an atom is an expression
+'''
 
 #> Imports
 import codecs
