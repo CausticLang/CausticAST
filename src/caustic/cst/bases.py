@@ -3,12 +3,17 @@
 '''Base nodes, should not be invoked directly'''
 
 #> Imports
+from dataclasses import dataclass
 #</Imports
 
 #> Header >/
 __all__ = ('CausticASTNode',
            'BaseStatement',
-           'BaseExpression', 'BaseAtom', 'BaseLiteral')
+           'BaseExpression',
+               'BaseOperator', 'BaseBinaryOperator', 'BaseUnaryOperator',
+               'BaseAtom', 'BaseLiteral')
+
+_dc = dataclass(slots=True)
 
 class CausticASTNode:
     '''The base class for all CST nodes'''
@@ -22,6 +27,19 @@ class BaseStatement(CausticASTNode):
 class BaseExpression(CausticASTNode):
     '''The base class for all expression CST nodes'''
     __slots__ = ()
+
+class BaseOperator(BaseExpression):
+    '''The base class for all operator CST nodes'''
+    __slots__ = ()
+@_dc
+class BaseBinaryOperator(BaseOperator):
+    '''The base class for all binary operator CST nodes'''
+    left: CausticASTNode
+    right: CausticASTNode
+@_dc
+class BaseUnaryOperator(BaseOperator):
+    '''The base class for all unary operator CST nodes'''
+    target: CausticASTNode
 
 ## Atoms
 class BaseAtom(BaseExpression):
