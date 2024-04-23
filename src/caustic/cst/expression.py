@@ -18,7 +18,9 @@ __all__ = (# Unary
            ### Aliases
            'EQ', 'NE', 'LT', 'GT', 'LE', 'GE',
            ## Logical
-           'LogAnd', 'LogOr', 'LogXor')
+           'LogAnd', 'LogOr', 'LogXor',
+           ## Bitwise
+           'BitAnd', 'BitOr', 'BitXor', 'LShift', 'RShift')
 
 # Unary
 class UPlus(BaseUnaryOperator):
@@ -100,4 +102,20 @@ class LogOr(BaseBinaryOperator):
     __slots__ = ()
 class LogXor(BaseBinaryOperator):
     '''Represents a logical exclusive-or operator'''
+    __slots__ = ()
+## Bitwise
+class BitAnd(BaseBinaryOperator):
+    '''Represents a bitwise and operator'''
+    __slots__ = ()
+class BitOr(BaseBinaryOperator):
+    '''Represents a bitwise or operator'''
+    __slots__ = ()
+class BitXor(BaseBinaryOperator):
+    '''Represents a bitwise exclusive or operator'''
+    __slots__ = ()
+class LShift(BaseBinaryOperator):
+    '''Represents a left-shift operator'''
+    __slots__ = ()
+class RShift(BaseBinaryOperator):
+    '''Represents a right-shift operator'''
     __slots__ = ()
