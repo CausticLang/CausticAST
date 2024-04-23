@@ -6,8 +6,12 @@
 #</Imports
 
 #> Header >/
-__all__ = ('CausticASTNode',)
+__all__ = ('CausticASTNode', 'BaseAtom')
 
 class CausticASTNode:
     '''The base class for all CST nodes'''
+    __slots__ = ()
+
+class BaseAtom(CausticASTNode):
+    '''The base class for all atom CST nodes'''
     __slots__ = ()
