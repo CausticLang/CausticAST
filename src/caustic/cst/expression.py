@@ -12,7 +12,11 @@ __all__ = (# Unary
            # Binary
            'AssignExpr',
            ## Arithmetic
-           'Add', 'Sub', 'Mult', 'Div', 'Mod', 'MMul')
+           'Add', 'Sub', 'Mult', 'Div', 'Mod', 'MMul',
+           ## Comparison
+           'Equality', 'Inequality', 'LessThan', 'GreaterThan', 'LessThanOrEquality', 'GreaterThanOrEquality', 'Nullish'
+           ### Aliases
+           'EQ', 'NE', 'LT', 'GT', 'LE', 'GE',)
 
 # Unary
 class UPlus(BaseUnaryOperator):
@@ -56,4 +60,32 @@ class Mod(BaseBinaryOperator):
     __slots__ = ()
 class MMul(BaseBinaryOperator):
     '''Represents a matrix-multiplication operator'''
+    __slots__ = ()
+## Comparison
+class Equality(BaseBinaryOperator):
+    '''Represents an equality comparison operator'''
+    __slots__ = ()
+EQ = Equality
+class Inequality(BaseBinaryOperator):
+    '''Represents an inequality comparison operator'''
+    __Slots__ = ()
+NE = Inequality
+class LessThan(BaseBinaryOperator):
+    '''Represents a less-than comparison operator'''
+    __Slots__ = ()
+LT = LessThan
+class GreaterThan(BaseBinaryOperator):
+    '''Represents a less-than comparison operator'''
+    __Slots__ = ()
+GT = GreaterThan
+class LessThanOrEquality(BaseBinaryOperator):
+    '''Represents a less-than or equality comparison operator'''
+    __slots__ = ()
+LE = LessThanOrEquality
+class GreaterThanOrEquality(BaseBinaryOperator):
+    '''Represents a greater-than or equality comparison operator'''
+    __slots__ = ()
+GE = GreaterThanOrEquality
+class Nullish(BaseBinaryOperator):
+    '''Represents a nullish comparison (nullish coalescing) operator'''
     __slots__ = ()
