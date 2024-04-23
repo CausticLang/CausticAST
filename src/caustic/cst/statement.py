@@ -3,11 +3,12 @@
 '''CST nodes for statements'''
 
 #> Imports
+import typing
 from dataclasses import dataclass, field
 from collections import abc as cabc
 
 from .bases import CausticASTNode, BaseStatement
-from .block import Block
+from .block import Block, Line
 #</Imports
 
 #> Header >/
@@ -38,7 +39,7 @@ class IfStatement(BaseStatement):
     '''Represents an if statement'''
     condition: CausticASTNode
     block: Block
-    next: ElifStatement | ElseStatement | None = None
+    next: typing.Union['ElifStatement', 'ElseStatement'] | None = None
 class ElifStatement(IfStatement):
     '''Represents an else-if statement'''
     __slots__ = ()
@@ -68,7 +69,7 @@ class RaiseStatement(BaseStatement):
 class TryStatement(BaseStatement):
     '''Represents an exception-handling statement/block'''
     block: Block
-    catch: CatchStatement = field(kw_only=True)
+    catch: 'CatchStatement' = field(kw_only=True)
 class CatchStatement(BaseStatement):
     '''Represents the "catch" part of a `TryStatement`'''
     catches: cabc.Sequence[CausticASTNode]

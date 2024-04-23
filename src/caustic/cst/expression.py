@@ -3,9 +3,9 @@
 '''Expression nodes'''
 
 #> Imports
-from dataclasses import dataclass, fields
+from dataclasses import dataclass, field
 
-from .bases import CausticASTnode
+from .bases import CausticASTNode
 from .bases import BaseOperator, BaseUnaryOperator, BaseBinaryOperator
 #</Imports
 
