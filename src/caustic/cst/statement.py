@@ -11,6 +11,7 @@ from .bases import CausticASTNode, BaseStatement
 
 #> Header >/
 __all__ = ('ImportStatement',
+           'ForStatement', 'WhileStatement',
            'RaiseStatement', 'TryStatement', 'CatchStatement', 'LowerStatement')
 
 _dc = dataclass(slots=True)
@@ -21,6 +22,19 @@ class ImportStatement(BaseStatement):
     target: CausticASTNode
     i_from: CausticASTNode | None = field(default=None, kw_only=True)
     i_as:   CausticASTNode | None = field(default=None, kw_only=True)
+
+# Loop-related
+@_dc
+class ForStatement(BaseStatement):
+    '''Represents a for loop'''
+    clause: tuple[CausticASTNode, CausticASTNode, CausticASTNode] | CausticASTNode
+    block: cabc.Sequence[CausticASTNode]
+    for_in: bool = field(default=False, kw_only=True)
+@_dc
+class WhileStatement(BaseStatement):
+    '''Represents a while loop'''
+    clause: CausticASTNode
+    block: cabc.Sequence[CausticASTNode]
 
 # Exception-related
 class RaiseStatement(BaseStatement):
