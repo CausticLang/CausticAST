@@ -28,6 +28,3 @@ Issues = "https://codeberg.org/Caustic/CausticAST/issues"
 [build-system]
 requires = ["setuptools>=61.0"]
 build-backend = "setuptools.build_meta"
-
-[tool.setuptools.package-data]
-"caustic.lexer" = ["grammar.cag", "precompiled_nodes.pkl"]
