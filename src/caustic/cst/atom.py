@@ -36,29 +36,17 @@ class DottedIdentifier(BaseAtom):
 @_dc
 class Integer(BaseLiteral):
     '''Represents an integer literal'''
-    val: int
+    val: str
 @_dc
 class Decimal(BaseLiteral):
     '''Represents a decimal'''
     val: str
-
-    def to_float(self) -> float:
-        return float(self.val)
 ## Character
 @_dc
 class Char(BaseLiteral):
-    '''
-        Represents a character
-        `val` is automatically encoded with UTF-8
-            and converted to an integer post-initialization, if it is a string
-    '''
-    val: int | str
+    '''Represents a character'''
+    val: str
 
-    def __post_init__(self) -> None:
-        if isinstance(self.val, int): return
-        encd = self.val.encode('UTF-8')
-        assert len(encd) == 1, f'Invalid length ({len(encd)}) for char: {self.val!r}'
-        return encd[0]
 @_dc
 class Bytes(BaseLiteral):
     '''Represents a sequence of bytes'''
