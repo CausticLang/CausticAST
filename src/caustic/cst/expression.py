@@ -17,7 +17,7 @@ __all__ = (# Unary
            ## Arithmetic
            'Add', 'Sub', 'Mult', 'Div', 'Mod', 'MMul',
            ## Comparison
-           'Equality', 'Inequality', 'LessThan', 'GreaterThan', 'LessThanOrEquality', 'GreaterThanOrEquality', 'Nullish'
+           'Equality', 'Inequality', 'LessThan', 'GreaterThan', 'LessThanOrEquality', 'GreaterThanOrEquality', 'Nullish',
            ### Aliases
            'EQ', 'NE', 'LT', 'GT', 'LE', 'GE',
            ## Logical
