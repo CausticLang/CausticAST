@@ -12,9 +12,13 @@ from .bases import CausticASTNode
 #> Header >/
 __all__ = ('Line', 'Block')
 
+_dc = dataclass(slots=True)
+
+@_dc
 class Line(CausticASTNode):
     '''Represents a single "line"--a statement, expression, etc.'''
     content: CausticASTNode
+@_dc
 class Block(CausticASTNode):
     '''Represents a block of lines'''
     body: cabc.Sequence[Line]
