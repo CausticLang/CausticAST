@@ -5,6 +5,8 @@
 #> Imports
 import typing
 from dataclasses import dataclass
+
+from . import serialize
 #</Imports
 
 #> Header >/
@@ -25,6 +27,9 @@ class CausticASTNode:
             source information (like name and line/column info)
     '''
     metadata: typing.Any | None = None
+
+    def __init_subclass__(cls):
+        serialize.register_nodetype(cls)
 
 class BaseStatement(CausticASTNode):
     '''The base class for all statement CST nodes'''

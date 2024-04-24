@@ -5,7 +5,7 @@
 #> Package >/
 __all__ = ('CausticASTNode', 'bases',
            'atom', 'block', 'expression', 'statement',
-           'mods')
+           'serialize', 'mods')
 
 from .bases import CausticASTNode
 from . import bases
@@ -14,3 +14,5 @@ from . import atom
 from . import block
 from . import expression
 from . import statement
+
+from . import serialize

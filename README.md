@@ -1,5 +1,8 @@
 Caustic's Abstract Syntax Tree
 
+Note that the `serialize` module, instead of providing node types,
+provides (de)serialization functions for nodes
+
 # Nodes
 
 > Note: Treat all names as being under `caustic.cst`
