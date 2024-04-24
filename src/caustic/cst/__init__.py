@@ -4,7 +4,8 @@
 
 #> Package >/
 __all__ = ('CausticASTNode', 'bases',
-           'atom', 'block', 'expression', 'statement')
+           'atom', 'block', 'expression', 'statement',
+           'mods')
 
 from .bases import CausticASTNode
 from . import bases

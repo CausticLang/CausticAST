@@ -15,11 +15,7 @@ bases.CausticASTNode
  │   │   └─ statement.ElifStatement
  │   ├─ statement.ElseStatement
  │   ├─ statement.ForStatement
- │   ├─ statement.WhileStatement
- │   ├─ statement.RaiseStatement
- │   ├─ statement.TryStatement
- │   ├─ statement.CatchStatement
- │   └─ statement.LowerStatement
+ │   └─ statement.WhileStatement
  ├─ bases.BaseExpression
  │   ├─ bases.BaseOperator
  │   │   ├─ bases.BaseUnaryOperator
@@ -64,4 +60,20 @@ bases.CausticASTNode
  │       └─ atom.DottedIdentifier
  ├─ block.Line
  └─ block.Block
+```
+
+## "Mod" nodes
+
+These nodes are used along with compiler mods (by using the `insmod` directive, for instance)
+
+> Note: Nodes under the `bases` name are not used with mods, but the nodes under them
+inherit from them
+
+### Exceptions
+```
+bases.BaseStatement
+ ├─ mods.m_exception.RaiseStatement
+ ├─ mods.m_exception.TryStatement
+ ├─ mods.m_exception.CatchStatement
+ └─ mods.m_exception.LowerStatement
 ```
