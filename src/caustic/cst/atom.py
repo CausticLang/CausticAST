@@ -37,6 +37,7 @@ class DottedIdentifier(BaseAtom):
 class Integer(BaseLiteral):
     '''Represents an integer literal'''
     val: str
+    base: int = 10
 @_dc
 class Decimal(BaseLiteral):
     '''Represents a decimal'''
