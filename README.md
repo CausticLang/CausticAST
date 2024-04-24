@@ -15,7 +15,8 @@ bases.CausticASTNode
  │   │   └─ statement.ElifStatement
  │   ├─ statement.ElseStatement
  │   ├─ statement.ForStatement
- │   └─ statement.WhileStatement
+ │   ├─ statement.WhileStatement
+ │   └─ statement.Directive
  ├─ bases.BaseExpression
  │   ├─ bases.BaseOperator
  │   │   ├─ bases.BaseUnaryOperator

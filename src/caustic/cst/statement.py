@@ -5,6 +5,7 @@
 #> Imports
 import typing
 from dataclasses import dataclass, field
+from collections import abc as cabc
 
 from .bases import CausticASTNode, BaseStatement
 from .block import Block, Line
@@ -13,7 +14,8 @@ from .block import Block, Line
 #> Header >/
 __all__ = ('ImportStatement', 'ExportStatement',
            'IfStatement', 'ElifStatement', 'ElseStatement',
-           'ForStatement', 'WhileStatement')
+           'ForStatement', 'WhileStatement',
+           'Directive')
 
 _dc = dataclass(slots=True)
 
@@ -59,3 +61,9 @@ class WhileStatement(BaseStatement):
     clause: CausticASTNode
     block: Block
     do_while: bool = field(default=False, kw_only=True)
+
+# Directive
+class Directive(BaseStatement):
+    '''Represents a compiler directive'''
+    name: str
+    args: cabc.Sequence[typing.Any]
