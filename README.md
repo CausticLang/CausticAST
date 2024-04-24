@@ -37,6 +37,7 @@ bases.CausticASTNode
  │   │   │   ├─ expression.Div
  │   │   │   ├─ expression.Mod
  │   │   │   ├─ expression.MMul
+ │   │   │   ├─ expression.Pow
  │   │   │   ├─ expression.Equality [EQ]
  │   │   │   ├─ expression.Inequality [NE]
  │   │   │   ├─ expression.LessThan [LT]

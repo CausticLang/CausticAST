@@ -15,7 +15,7 @@ __all__ = (# Unary
            # Binary
            'AssignExpr',
            ## Arithmetic
-           'Add', 'Sub', 'Mult', 'Div', 'Mod', 'MMul',
+           'Add', 'Sub', 'Mult', 'Div', 'Mod', 'MMul', 'Pow',
            ## Comparison
            'Equality', 'Inequality', 'LessThan', 'GreaterThan', 'LessThanOrEquality', 'GreaterThanOrEquality', 'Nullish',
            ### Aliases
@@ -69,6 +69,9 @@ class Mod(BaseBinaryOperator):
     __slots__ = ()
 class MMul(BaseBinaryOperator):
     '''Represents a matrix-multiplication operator'''
+    __slots__ = ()
+class Pow(BaseBinaryOperator):
+    '''Represents a power (exponentiation) operation'''
     __slots__ = ()
 ## Comparison
 class Equality(BaseBinaryOperator):
