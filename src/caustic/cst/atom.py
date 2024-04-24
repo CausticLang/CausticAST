@@ -15,7 +15,7 @@ from .bases import BaseAtom, BaseLiteral
 #</Imports
 
 #> Header >/
-__all__ = ('Identifier',
+__all__ = ('Identifier', 'DottedIdentifier',
            'Integer', 'Decimal',
            'Char', 'Bytes', 'String')
 
@@ -24,11 +24,12 @@ _dc = dataclass(slots=True)
 @_dc
 class Identifier(BaseAtom):
     '''Represents an identifier'''
-    name: str | cabc.Sequence[str]
+    name: str
 
-    @property
-    def is_dotted(self) -> bool:
-        return not isinstance(self.name, str)
+@_dc
+class DottedIdentifier(BaseAtom):
+    '''Represents a multipart identifier'''
+    names: cabc.Sequence[str]
 
 # Literals
 ## Numeric
