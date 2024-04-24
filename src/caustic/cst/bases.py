@@ -3,6 +3,7 @@
 '''Base nodes, should not be invoked directly'''
 
 #> Imports
+import typing
 from dataclasses import dataclass
 #</Imports
 
@@ -15,9 +16,15 @@ __all__ = ('CausticASTNode',
 
 _dc = dataclass(slots=True)
 
+@dataclass(slots=True, kw_only=True)
 class CausticASTNode:
-    '''The base class for all CST nodes'''
-    __slots__ = ()
+    '''
+        The base class for all CST nodes
+        `metadata` is (optionally) set by the parser and could
+            be anything (depending on the parser), most commonly
+            source information (like name and line/column info)
+    '''
+    metadata: typing.Any | None = None
 
 class BaseStatement(CausticASTNode):
     '''The base class for all statement CST nodes'''
