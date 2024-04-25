@@ -7,7 +7,6 @@
 '''
 
 #> Imports
-import codecs
 from dataclasses import dataclass, field
 from collections import abc as cabc
 
