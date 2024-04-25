@@ -3,14 +3,21 @@
 '''Expression nodes'''
 
 #> Imports
+import typing
 from dataclasses import dataclass, field
+from collections import abc as cabc
 
 from .bases import CausticASTNode
+from .bases import BaseExpression
 from .bases import BaseOperator, BaseUnaryOperator, BaseBinaryOperator
+from .atom import Identifier
+from .block import Block
 #</Imports
 
 #> Header >/
-__all__ = (# Unary
+__all__ = (# Procedure
+           'Invoke', 'ProcedureExpr',
+           # Unary
            'UPlus', 'UMinus', 'Increment', 'Decrement', 'BitInvert', 'LogNot',
            # Binary
            'AssignExpr',
@@ -26,6 +33,39 @@ __all__ = (# Unary
            'BitAnd', 'BitOr', 'BitXor', 'LShift', 'RShift',
            # Ternary
            'Ternary')
+
+_dc = dataclass(slots=True)
+
+# Procedure
+@_dc
+class Invoke(BaseExpression):
+    '''
+        Represents a procedure invokation
+
+        `varargs` is a set of integers corresponding to which indexes
+            of `args` are varargs
+    '''
+    VARKW_MARKER: typing.ClassVar[None] = None
+
+    proc: CausticASTNode
+    args: cabc.Sequence[CausticASTNode]
+    kwargs: cabc.Sequence[tuple[Identifier | None, CausticASTNode]]
+    varargs: cabc.Container[int] = field(default=frozenset(), kw_only=True)
+@_dc
+class ProcedureExpr(BaseExpression):
+    '''
+        Represents an inline procedure expression
+
+        All parameters are represented as a tuple of `name`, `type`,
+            and `params` is a sequence of parameters
+    '''
+    return_type: CausticASTNode | None
+    params: cabc.Sequence[tuple[CausticASTNode, CausticASTNode]] | None = None
+    pos_only: int | None = field(default=None, kw_only=True)
+    kw_only: int | None = field(default=None, kw_only=True)
+    var_pos: tuple[CausticASTNode, CausticASTNode] | None = field(default=None, kw_only=True)
+    var_kw: tuple[CausticASTNode, CausticASTNode] | None = field(default=None, kw_only=True)
+    body: Block | None = field(default=None, kw_only=True)
 
 # Unary
 class UPlus(BaseUnaryOperator):

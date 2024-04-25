@@ -12,6 +12,7 @@ provides (de)serialization functions for nodes
 ```
 bases.CausticASTNode
  ├─ bases.BaseStatement
+ │   ├─ statement.ProcedureStatement
  │   ├─ statement.ImportStatement
  │   ├─ statement.ExportStatement
  │   ├─ statement.IfStatement
@@ -21,6 +22,8 @@ bases.CausticASTNode
  │   ├─ statement.WhileStatement
  │   └─ statement.Directive
  ├─ bases.BaseExpression
+ │   ├─ expression.Invoke
+ │   ├─ expression.ProcedureExpr
  │   ├─ bases.BaseOperator
  │   │   ├─ bases.BaseUnaryOperator
  │   │   │   ├─ expression.UPlus

@@ -12,12 +12,30 @@ from .block import Block, Line
 #</Imports
 
 #> Header >/
-__all__ = ('ImportStatement', 'ExportStatement',
+__all__ = ('ProcedureStatement',
+           'ImportStatement', 'ExportStatement',
            'IfStatement', 'ElifStatement', 'ElseStatement',
            'ForStatement', 'WhileStatement',
            'Directive')
 
 _dc = dataclass(slots=True)
+
+@_dc
+class ProcedureStatement(BaseStatement):
+    '''
+        Represents a named procedure declaration statement
+
+        All parameters are represented as a tuple of `name`, `type`,
+            and `params` is a sequence of parameters
+    '''
+    name: CausticASTNode
+    return_type: CausticASTNode | None
+    params: cabc.Sequence[tuple[CausticASTNode, CausticASTNode]] | None = None
+    pos_only: int | None = field(default=None, kw_only=True)
+    kw_only: int | None = field(default=None, kw_only=True)
+    var_pos: tuple[CausticASTNode, CausticASTNode] | None = field(default=None, kw_only=True)
+    var_kw: tuple[CausticASTNode, CausticASTNode] | None = field(default=None, kw_only=True)
+    body: Block | None = field(default=None, kw_only=True)
 
 # External-related
 @_dc
