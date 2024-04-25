@@ -14,7 +14,7 @@ __all__ = ('CausticASTNode',
            'BaseStatement',
            'BaseExpression',
                'BaseOperator', 'BaseBinaryOperator', 'BaseUnaryOperator',
-               'BaseAtom', 'BaseLiteral')
+               'BaseAtom', 'BaseConstant', 'BaseLiteral')
 
 _dc = dataclass(slots=True)
 
@@ -56,6 +56,9 @@ class BaseUnaryOperator(BaseOperator):
 ## Atoms
 class BaseAtom(BaseExpression):
     '''The base class for all atom CST nodes'''
+    __slots__ = ()
+class BaseConstant(BaseAtom):
+    '''The base class for all constant CST nodes'''
     __slots__ = ()
 class BaseLiteral(BaseAtom):
     '''The base class for all literal CST nodes'''

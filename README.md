@@ -58,6 +58,11 @@ bases.CausticASTNode
  │   │   │   └─ expression.RShift
  │   │   └─ expression.Ternary
  │   └─ bases.BaseAtom
+ │       ├─ bases.BaseConstant
+ │       │   ├─ constant.BoolTrue
+ │       │   ├─ constant.BoolFalse
+ │       │   ├─ constant.Null
+ │       │   └─ constant.Default
  │       ├─ bases.BaseLiteral
  │       │   ├─ atom.Integer
  │       │   ├─ atom.Decimal
