@@ -20,7 +20,12 @@ bases.CausticASTNode
  │   ├─ statement.ElseStatement
  │   ├─ statement.ForStatement
  │   ├─ statement.WhileStatement
- │   └─ statement.Directive
+ │   ├─ statement.Directive
+ │   └─ bases.BaseTypeDecl
+ │       ├─ typedecl.SingletonType
+ │       ├─ typedecl.EnumType
+ │       └─ typedecl.StructType
+ │           └─ typedecl.ClassType
  ├─ bases.BaseExpression
  │   ├─ expression.Invoke
  │   ├─ expression.ProcedureExpr

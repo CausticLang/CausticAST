@@ -11,7 +11,7 @@ from . import serialize
 
 #> Header >/
 __all__ = ('CausticASTNode',
-           'BaseStatement',
+           'BaseStatement', 'BaseTypeDecl',
            'BaseExpression',
                'BaseOperator', 'BaseBinaryOperator', 'BaseUnaryOperator',
                'BaseAtom', 'BaseConstant', 'BaseLiteral')
@@ -34,6 +34,11 @@ class CausticASTNode:
 class BaseStatement(CausticASTNode):
     '''The base class for all statement CST nodes'''
     __slots__ = ()
+
+@_dc
+class BaseTypeDecl(BaseStatement):
+    '''The base class for all type declarations'''
+    name: CausticASTNode
 
 # Expressions
 class BaseExpression(CausticASTNode):
