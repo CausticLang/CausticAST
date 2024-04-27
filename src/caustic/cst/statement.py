@@ -81,6 +81,7 @@ class WhileStatement(BaseStatement):
     do_while: bool = field(default=False, kw_only=True)
 
 # Directive
+@_dc
 class Directive(BaseStatement):
     '''Represents a compiler directive'''
     name: str
