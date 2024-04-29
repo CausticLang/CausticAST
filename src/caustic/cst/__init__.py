@@ -11,7 +11,7 @@ except ModuleNotFoundError:
 #</Imports
 
 #> Package >/
-__all__ = ('SourceInfo',)
+__all__ = ('SourceInfo', 'CSTNode', 'CustomNode')
 
 class SourceInfo(typing.NamedTuple):
 
@@ -40,3 +40,16 @@ class SourceInfo(typing.NamedTuple):
 
     def __str__(self) -> str:
         return f'{self.source or "<unknown>"}@{"<unknown position>" if (self.start_pos is None) and (self.start_line is None) else self.str_pos()}'
+
+@dataclass(slots=True, kw_only=True)
+class CSTNode:
+    '''The base class for all CST nodes'''
+    source: SourceInfo
+
+@dataclass(slots=True)
+class CustomNode(CSTNode):
+    '''
+        Provided for ease-of-use with compiler mods
+            without having to define node classes
+    '''
+    data: typing.Any
