@@ -31,7 +31,7 @@ class SourceInfo(typing.NamedTuple):
             end = parglare.pos_to_line_col(ctx.input_str, ctx.end_position)
             kwargs.update(start_line=start[0], start_col=start[1],
                           end_line=end[0], end_col=end[1])
-        return cls(file_name=ctx.file_name, start_pos=ctx.start_position, end_pos=ctx.end_position, **kwargs)
+        return cls(source=ctx.file_name, start_pos=ctx.start_position, end_pos=ctx.end_position, **kwargs)
 
     def str_pos(self) -> str:
         return (f'P{self.start_pos}{"" if self.end_pos is None else f"-{self.end_pos}"}'
