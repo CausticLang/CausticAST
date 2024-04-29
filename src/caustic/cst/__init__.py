@@ -47,6 +47,22 @@ class CSTNode:
     '''The base class for all CST nodes'''
     source: SourceInfo
 
+    BASE_MODULE = __module__
+    NODE_DIRECTORY: typing.ClassVar[dict[str, type[typing.Self]]] = {}
+
+    def __init_subclass__(cls):
+        cls.register_node(cls)
+
+    @classmethod
+    def node_name(cls) -> str:
+        return f'{cls.__module__.removeprefix(f"{cls.BASE_MODULE}").strip(".")}.{cls.__name__}'
+
+    @classmethod
+    def register_node(cls, other: type) -> str:
+        name = getattr(other, 'node_name', cls.node_name).__func__(other)
+        cls.NODE_DIRECTORY[name] = other
+        return name
+
 @dataclass(slots=True)
 class CustomNode(CSTNode):
     '''
