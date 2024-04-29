@@ -4,7 +4,6 @@
 
 #> Imports
 import typing
-import collections
 from dataclasses import dataclass
 try: import parglare
 except ModuleNotFoundError:
@@ -14,30 +13,24 @@ except ModuleNotFoundError:
 #> Package >/
 __all__ = ('SourceInfo',)
 
-class SourceInfo(collections.namedtuple('SourceInfo', (
-        'source', 'input_str', 'start_pos', 'end_pos',
-        'start_line', 'start_col', 'end_line', 'end_col',
-        'metadata'))):
+class SourceInfo(typing.NamedTuple):
 
-    def __new__(cls, source: int | None, input_str: str | None = None, start_pos: int | None = None, end_pos: int | None = None,
-                start_line: int | None = None, start_col: int | None = None, end_line: int | None = None, end_col: int | None = None,
-                metadata: typing.Any | None = None, *, parglare_auto_lcno: bool = True):
-        if (parglare is not None) and (input_str is not None):
-            if (start_pos is not None) and ((start_line is None) or (start_col is None)):
-                start = parglare.pos_to_line_col(input_str, start_pos)
-                if start_line is None: start_line = start[0]
-                if start_col is None: start_col = start[1]
-            if (end_pos is not None) and ((end_line is None) or (end_col is None)):
-                end = parglare.pos_to_line_col(input_str, start_pos)
-                if end_line is None: end_line = end[0]
-                if end_col is None: end_col = end[1]
-        return super().__new__(cls, source=source, input_str=input_str, start_pos=start_pos, end_pos=end_pos,
-                               start_line=start_line, start_col=start_col, end_line=end_line, end_col=end_col,
-                               metadata=metadata)
+    source: str | None
+    start_pos: int | None = None
+    end_pos: int | None = None
+    start_line: int | None = None
+    start_col: int | None = None
+    end_line: int | None = None
+    end_col: int | None = None
 
     @classmethod
-    def from_parglare_ctx(cls, ctx: typing.Any):
-        return cls(file_name=ctx.file_name, input_str=ctx.input_str, start_pos=ctx.start_position, end_pos=ctx.end_position, metadata=ctx)
+    def from_parglare_ctx(cls, ctx: typing.Any, **kwargs):
+        if parglare is not None:
+            start = parglare.pos_to_line_col(ctx.input_str, ctx.start_position)
+            end = parglare.pos_to_line_col(ctx.input_str, ctx.end_position)
+            kwargs.update(start_line=start[0], start_col=start[1],
+                          end_line=end[0], end_col=end[1])
+        return cls(file_name=ctx.file_name, start_pos=ctx.start_position, end_pos=ctx.end_position, **kwargs)
 
     def str_pos(self) -> str:
         return (f'P{self.start_pos}{"" if self.end_pos is None else f"-{self.end_pos}"}'
