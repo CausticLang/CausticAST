@@ -10,7 +10,8 @@ except ModuleNotFoundError:
     parglare = None
 #</Imports
 
-__all__ = ('SourceInfo', 'CSTNode', 'CustomNode')
+__all__ = ('SourceInfo', 'CSTNode', 'CustomNode',
+           'expressions')
 
 #> Header
 class SourceInfo(typing.NamedTuple):
@@ -56,3 +57,4 @@ class CustomNode(CSTNode):
 #</Header
 
 #> Package >/
+from . import expressions
