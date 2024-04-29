@@ -6,15 +6,20 @@ from dataclasses import dataclass
 from .. import CSTNode
 #</Imports
 
-__all__ = ('Expression',)
+__all__ = ('Expression',
+           'atoms')
 
-#> Package
-#</Package
-
-#> Header >/
 _dc = dataclass(slots=True, kw_only=True)
 
-# Base
+#> Header
 @_dc
 class Expression(CSTNode):
     '''The base class for all expression nodes'''
+#</Header
+
+#> Package
+from . import atoms
+#</Package
+
+#> Header
+#</Header
