@@ -10,7 +10,7 @@ from . import Expression
 
 #> Header >/
 __all__ = ('Operation',
-           'Positive', 'Negative', 'LogInverse', 'BitInverse')
+           'Positive', 'Negative', 'LogInverse', 'BitInverse', 'Increment', 'Decrement')
 
 _dc = dataclass(slots=True)
 
@@ -37,4 +37,9 @@ class LogInverse(_UnaryOp):
 @_dc
 class BitInverse(_UnaryOp):
     '''Represents a bitwise inverse operation'''
-
+@_dc
+class Increment(_UnaryOp):
+    '''Represents an increment operation'''
+@_dc
+class Decrement(_UnaryOp):
+    '''Represents a decrement operation'''
