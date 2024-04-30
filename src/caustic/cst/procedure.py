@@ -14,7 +14,8 @@ from . import expressions
 
 #> Header >/
 __all__ = ('Param',
-           'ProcedureStmt', 'ProcedureExpr')
+           'ProcedureStmt', 'ProcedureExpr',
+           'Invokation')
 
 class Param(typing.NamedTuple):
     '''
@@ -46,3 +47,11 @@ class ProcedureStmt(statements.Statement, _Signature):
 class ProcedureExpr(expressions.Expression, _Signature):
     '''Represents a procedure expression'''
     body: block.Block | None | typing.Any
+
+@dataclass(slots=True, kw_only=True)
+class Invokation(expressions.Expression):
+    '''Represents a procedure invokation'''
+    target: expressions.Expression | typing.Any = field(kw_only=False)
+    args: cabc.Sequence[expressions.Expression] | typing.Any = ()
+    kwargs: cabc.Sequence[tuple[expressions.atoms.Identifier | None, expressions.Expression]] | typing.Any = ()
+    unpack_args: cabc.Set[int] | typing.Any = frozenset()
