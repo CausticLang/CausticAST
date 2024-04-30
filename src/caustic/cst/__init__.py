@@ -11,7 +11,7 @@ except ModuleNotFoundError:
 #</Imports
 
 __all__ = ('SourceInfo', 'CSTNode', 'CustomNode',
-           'block', 'typedecl', 'expressions', 'statements')
+           'block', 'typedecl', 'expressions', 'statements', 'procedure')
 
 #> Header
 class SourceInfo(typing.NamedTuple):
@@ -79,3 +79,4 @@ from . import block
 from . import typedecl
 from . import expressions
 from . import statements
+from . import procedure
