@@ -10,7 +10,8 @@ from . import Expression
 
 #> Header >/
 __all__ = ('Operation',
-           'Positive', 'Negative', 'LogInverse', 'BitInverse', 'Increment', 'Decrement')
+           'Positive', 'Negative', 'LogInverse', 'BitInverse', 'Increment', 'Decrement',
+           'Add', 'Sub', 'Mult', 'MMul', 'Div', 'Mod', 'Exp')
 
 _dc = dataclass(slots=True)
 
@@ -23,6 +24,11 @@ class Operation(Expression):
 class _UnaryOp(Operation):
     # Internal base class for unary operations
     target: Expression | typing.Any
+@_dc
+class _BinaryOp(Operation):
+    # Internal base class for binary operations
+    left: Expression | typing.Any
+    right: Expression | typing.Any
 
 # Unary operations
 @_dc
@@ -43,3 +49,27 @@ class Increment(_UnaryOp):
 @_dc
 class Decrement(_UnaryOp):
     '''Represents a decrement operation'''
+
+# Binary operations
+## Arithmetic
+@_dc
+class Add(_BinaryOp):
+    '''Represents an addition operation'''
+@_dc
+class Sub(_BinaryOp):
+    '''Represents a subtraction operation'''
+@_dc
+class Mult(_BinaryOp):
+    '''Represents a multiplication operation'''
+@_dc
+class MMul(_BinaryOp):
+    '''Represents a matrix multiplication operation'''
+@_dc
+class Div(_BinaryOp):
+    '''Represents a division operation'''
+@_dc
+class Mod(_BinaryOp):
+    '''Represents a modulus operation'''
+@_dc
+class Exp(_BinaryOp):
+    '''Represents an exponent operation'''
