@@ -7,7 +7,7 @@ from .. import CSTNode
 #</Imports
 
 __all__ = ('Expression',
-           'atoms')
+           'atoms', 'operators')
 
 _dc = dataclass(slots=True, kw_only=True)
 
@@ -19,6 +19,7 @@ class Expression(CSTNode):
 
 #> Package
 from . import atoms
+from . import operators
 #</Package
 
 #> Header
