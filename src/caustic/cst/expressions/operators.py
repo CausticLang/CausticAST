@@ -11,7 +11,8 @@ from . import Expression
 #> Header >/
 __all__ = ('Operation',
            'Positive', 'Negative', 'LogInverse', 'BitInverse', 'Increment', 'Decrement',
-           'Add', 'Sub', 'Mult', 'MMul', 'Div', 'Mod', 'Exp')
+           'Add', 'Sub', 'Mult', 'MMul', 'Div', 'Mod', 'Exp',
+           'EQ', 'NE', 'LT', 'LE', 'GT', 'GE')
 
 _dc = dataclass(slots=True)
 
@@ -73,3 +74,22 @@ class Mod(_BinaryOp):
 @_dc
 class Exp(_BinaryOp):
     '''Represents an exponent operation'''
+## Comparison
+@_dc
+class EQ(_BinaryOp):
+    '''Represents an equivelance comparison operation'''
+@_dc
+class NE(_BinaryOp):
+    '''Represents a non-equivelance comparison operation'''
+@_dc
+class LT(_BinaryOp):
+    '''Represents a less-than comparison operation'''
+@_dc
+class LE(_BinaryOp):
+    '''Represents a less-than or equivelance comparison operation'''
+@_dc
+class GT(_BinaryOp):
+    '''Represents a greater-than comparison operation'''
+@_dc
+class GE(_BinaryOp):
+    '''Represents a greater-than or equivelance comparison operation'''
