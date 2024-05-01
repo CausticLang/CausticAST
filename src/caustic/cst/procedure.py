@@ -30,7 +30,7 @@ class Param(typing.NamedTuple):
 class _Signature:
     # Mixin for a procedure's signature
     return_type: typing.Union['typedecl.Type', None, typing.Any]
-    params: cabc.Sequence[Param] | typing.Any
+    params: cabc.Sequence[Param] | None | typing.Any
     pos_only: int | None | typing.Any = None
     var_pos: Param | None | typing.Any = None
     kw_only: int | None | typing.Any = None
