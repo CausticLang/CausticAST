@@ -11,7 +11,8 @@ from .. import expressions
 #</Imports
 
 __all__ = ('Statement',
-           'Declaration', 'Assignment')
+           'Declaration', 'Assignment',
+           'objects')
 
 _dc = dataclass(slots=True, kw_only=True)
 
@@ -36,6 +37,7 @@ class Assignment(Statement):
 #</Header
 
 #> Package
+from . import objects
 #</Package
 
 #> Header
