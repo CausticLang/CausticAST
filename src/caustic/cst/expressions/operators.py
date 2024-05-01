@@ -12,7 +12,9 @@ from . import Expression
 __all__ = ('Operation',
            'Positive', 'Negative', 'LogInverse', 'BitInverse', 'Increment', 'Decrement',
            'Add', 'Sub', 'Mult', 'MMul', 'Div', 'Mod', 'Exp',
-           'EQ', 'NE', 'LT', 'LE', 'GT', 'GE', 'NullCoalescing')
+           'EQ', 'NE', 'LT', 'LE', 'GT', 'GE', 'NullCoalescing',
+           'LogAnd', 'LogOr', 'LogXOr',
+           'BitAnd', 'BitOr', 'BitXOr')
 
 _dc = dataclass(slots=True)
 
@@ -96,3 +98,23 @@ class GE(_BinaryOp):
 @_dc
 class NullCoalescing(_BinaryOp):
     '''Represents a null-coalescing operation'''
+## Logical
+@_dc
+class LogAnd(_BinaryOp):
+    '''Represents a logical "and" operation'''
+@_dc
+class LogOr(_BinaryOp):
+    '''Represents a logical "or" operation'''
+@_dc
+class LogXOr(_BinaryOp):
+    '''Represents a logical "exclusive or" operation'''
+## Bitwise
+@_dc
+class BitAnd(_BinaryOp):
+    '''Represents a bitwise "and" operation'''
+@_dc
+class BitOr(_BinaryOp):
+    '''Represents a bitwise "or" operation'''
+@_dc
+class BitXOr(_BinaryOp):
+    '''Represents a bitwise "exclusive or" operation'''
