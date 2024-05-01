@@ -12,7 +12,7 @@ from . import Expression
 __all__ = ('Operation',
            'Positive', 'Negative', 'LogInverse', 'BitInverse', 'Increment', 'Decrement',
            'Add', 'Sub', 'Mult', 'MMul', 'Div', 'Mod', 'Exp',
-           'EQ', 'NE', 'LT', 'LE', 'GT', 'GE')
+           'EQ', 'NE', 'LT', 'LE', 'GT', 'GE', 'NullCoalescing')
 
 _dc = dataclass(slots=True)
 
@@ -93,3 +93,6 @@ class GT(_BinaryOp):
 @_dc
 class GE(_BinaryOp):
     '''Represents a greater-than or equivelance comparison operation'''
+@_dc
+class NullCoalescing(_BinaryOp):
+    '''Represents a null-coalescing operation'''
