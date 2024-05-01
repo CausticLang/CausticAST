@@ -15,7 +15,8 @@ __all__ = ('Operation',
            'Add', 'Sub', 'Mult', 'MMul', 'Div', 'Mod', 'Exp',
            'EQ', 'NE', 'LT', 'LE', 'GT', 'GE', 'NullCoalescing',
            'LogAnd', 'LogOr', 'LogXOr',
-           'BitAnd', 'BitOr', 'BitXOr', 'LShift', 'RShift')
+           'BitAnd', 'BitOr', 'BitXOr', 'LShift', 'RShift',
+           'TernaryConditional')
 
 _dc = dataclass(slots=True)
 
@@ -129,3 +130,11 @@ class LShift(_BinaryOp):
 @_dc
 class RShift(_BinaryOp):
     '''Represents a bitwise right-shift operation'''
+
+# Ternary operations
+@_dc
+class TernaryConditional(Operation):
+    '''Represents a ternary conditional operation'''
+    condition: Expression
+    true: Expression
+    false: Expression
