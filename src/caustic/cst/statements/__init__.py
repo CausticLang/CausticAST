@@ -13,6 +13,7 @@ from .. import expressions
 __all__ = ('Statement',
            'Declaration', 'Assignment',
            'If', 'Elif', 'Else',
+           'While', 'For', 'DoWhile',
            'objects')
 
 _dc = dataclass(slots=True, kw_only=True)
@@ -50,6 +51,25 @@ class Elif(If):
 class Else(Statement):
     '''Represents the "false" condition of an `If` or `Elif`'''
     body: CSTNode | typing.Any
+
+# Loops
+@_dc
+class While(Statement):
+    '''Represents a while-loop'''
+    condition: expressions.Expression | typing.Any
+    body: CSTNode | typing.Any
+@_dc
+class For(While):
+    '''Represents a 3-part for-loop'''
+    condition: expressions.Expression | None | typing.Any
+    init: expressions.Expression | None | typing.Any
+    foreach: expressions.Expression | None | typing.Any
+@_dc
+class DoWhile(While):
+    '''
+        Represents a while-loop that checks its condition
+            after its first run
+    '''
 #</Header
 
 #> Package
