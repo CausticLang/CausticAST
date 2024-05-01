@@ -1,5 +1,7 @@
 Caustic's Abstract Syntax Tree
 
+> !NOTE! `serialize` module not yet re-implemented
+
 Note that the `serialize` module, instead of providing node types,
 provides (de)serialization functions for nodes
 
@@ -7,7 +9,7 @@ provides (de)serialization functions for nodes
 
 > Note: Treat all names as being under `caustic.cst`
 
-> This took way too long to make
+> !NOTE! Outdated!
 
 ```
 bases.CausticASTNode
@@ -78,20 +80,4 @@ bases.CausticASTNode
  │       └─ atom.DottedIdentifier
  ├─ block.Line
  └─ block.Block
-```
-
-## "Mod" nodes
-
-These nodes are used along with compiler mods (by using the `insmod` directive, for instance)
-
-> Note: Nodes under the `bases` name are not used with mods, but the nodes under them
-inherit from them
-
-### Exceptions
-```
-bases.BaseStatement
- ├─ mods.m_exception.RaiseStatement
- ├─ mods.m_exception.TryStatement
- ├─ mods.m_exception.CatchStatement
- └─ mods.m_exception.LowerStatement
 ```
