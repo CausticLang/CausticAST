@@ -1,7 +1,5 @@
 Caustic's Abstract Syntax Tree
 
-> !NOTE! `serialize` module not yet re-implemented
-
 Note that the `serialize` module, instead of providing node types,
 provides (de)serialization functions for nodes
 
