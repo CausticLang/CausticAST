@@ -22,7 +22,6 @@ class CSTPickler(pickle.Pickler):
     __slots__ = ()
 
     def persistent_id(self, obj: typing.Any) -> str | None:
-        print(obj)
         if isinstance(obj, type) and issubclass(obj, CSTNode):
             return obj.node_name()
         return None
