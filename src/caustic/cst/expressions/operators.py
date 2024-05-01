@@ -11,6 +11,7 @@ from . import Expression
 #> Header >/
 __all__ = ('Operation',
            'Positive', 'Negative', 'LogInverse', 'BitInverse', 'Increment', 'Decrement',
+           'Subscription',
            'Add', 'Sub', 'Mult', 'MMul', 'Div', 'Mod', 'Exp',
            'EQ', 'NE', 'LT', 'LE', 'GT', 'GE', 'NullCoalescing',
            'LogAnd', 'LogOr', 'LogXOr',
@@ -54,6 +55,9 @@ class Decrement(_UnaryOp):
     '''Represents a decrement operation'''
 
 # Binary operations
+@_dc
+class Subscription(_BinaryOp):
+    '''Represents a subscription operation'''
 ## Arithmetic
 @_dc
 class Add(_BinaryOp):
