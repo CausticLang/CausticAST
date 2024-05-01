@@ -7,75 +7,69 @@ provides (de)serialization functions for nodes
 
 > Note: Treat all names as being under `caustic.cst`
 
-> !NOTE! Outdated!
+> Note: nodes marked with `*` are considered "base" nodes,
+> and nodes prefixed with `_` are implementation details used
+> purely for grouping
 
 ```
-bases.CausticASTNode
- ├─ bases.BaseStatement
- │   ├─ statement.ProcedureStatement
- │   ├─ statement.ImportStatement
- │   ├─ statement.ExportStatement
- │   ├─ statement.IfStatement
- │   │   └─ statement.ElifStatement
- │   ├─ statement.ElseStatement
- │   ├─ statement.ForStatement
- │   ├─ statement.WhileStatement
- │   ├─ statement.Directive
- │   └─ bases.BaseTypeDecl
- │       ├─ typedecl.SingletonType
- │       ├─ typedecl.EnumType
- │       └─ typedecl.StructType
- │           └─ typedecl.ClassType
- ├─ bases.BaseExpression
- │   ├─ expression.Invoke
- │   ├─ expression.ProcedureExpr
- │   ├─ bases.BaseOperator
- │   │   ├─ bases.BaseUnaryOperator
- │   │   │   ├─ expression.UPlus
- │   │   │   ├─ expression.UMinus
- │   │   │   ├─ expression.Increment
- │   │   │   ├─ expression.Decrement
- │   │   │   ├─ expression.BitInvert
- │   │   │   └─ expression.LogNot
- │   │   ├─ bases.BaseBinaryOperator
- │   │   │   ├─ expression.AssignExpr
- │   │   │   ├─ expression.Add
- │   │   │   ├─ expression.Sub
- │   │   │   ├─ expression.Mult
- │   │   │   ├─ expression.Div
- │   │   │   ├─ expression.Mod
- │   │   │   ├─ expression.MMul
- │   │   │   ├─ expression.Pow
- │   │   │   ├─ expression.Equality [EQ]
- │   │   │   ├─ expression.Inequality [NE]
- │   │   │   ├─ expression.LessThan [LT]
- │   │   │   ├─ expression.GreaterThan [GT]
- │   │   │   ├─ expression.LessThanOrEquality [LE]
- │   │   │   ├─ expression.GreaterThanOrEquality [GE]
- │   │   │   ├─ expression.Nullish
- │   │   │   ├─ expression.LogAnd
- │   │   │   ├─ expression.LogOr
- │   │   │   ├─ expression.LogXor
- │   │   │   ├─ expression.BitAnd
- │   │   │   ├─ expression.BitOr
- │   │   │   ├─ expression.BitXor
- │   │   │   ├─ expression.LShift
- │   │   │   └─ expression.RShift
- │   │   └─ expression.Ternary
- │   └─ bases.BaseAtom
- │       ├─ bases.BaseConstant
- │       │   ├─ constant.BoolTrue
- │       │   ├─ constant.BoolFalse
- │       │   ├─ constant.Null
- │       │   └─ constant.Default
- │       ├─ bases.BaseLiteral
- │       │   ├─ atom.Integer
- │       │   ├─ atom.Decimal
- │       │   ├─ atom.Char
- │       │   ├─ atom.Bytes
- │       │   └─ atom.String
- │       ├─ atom.Identifier
- │       └─ atom.DottedIdentifier
- ├─ block.Line
- └─ block.Block
+CSTNode*
+ ├─ CustomNode
+ ├─ block.Block
+ ├─ typedecl.Type
+ ├─ expressions.Expression*
+ │   ├─ procedure.ProcedureExpr
+ │   ├─ procedure.Invokation
+ │   ├─ expressions.atoms.Atom*
+ │   │   ├─ expressions.atoms.Identifier
+ │   │   ├─ expressions.atoms.DottedIdentifier
+ │   │   └─ expressions.atoms.Integer
+ │   ├─ expressions.operators.Operation*
+ │   │   ├─ expressions.operators._UnaryOp*
+ │   │   │   ├─ expressions.operators.Positive
+ │   │   │   ├─ expressions.operators.Negative
+ │   │   │   ├─ expressions.operators.LogInverse
+ │   │   │   ├─ expressions.operators.BitInverse
+ │   │   │   ├─ expressions.operators.Increment
+ │   │   │   └─ expressions.operators.Decrement
+ │   │   ├─ expressions.operators._BinaryOp*
+ │   │   │   ├─ expressions.operators.Subscription
+ │   │   │   ├─ expressions.operators.Add
+ │   │   │   ├─ expressions.operators.Sub
+ │   │   │   ├─ expressions.operators.Mult
+ │   │   │   ├─ expressions.operators.MMul
+ │   │   │   ├─ expressions.operators.Div
+ │   │   │   ├─ expressions.operators.Mod
+ │   │   │   ├─ expressions.operators.Exp
+ │   │   │   ├─ expressions.operators.EQ
+ │   │   │   ├─ expressions.operators.NE
+ │   │   │   ├─ expressions.operators.LT
+ │   │   │   ├─ expressions.operators.LE
+ │   │   │   ├─ expressions.operators.GT
+ │   │   │   ├─ expressions.operators.GE
+ │   │   │   ├─ expressions.operators.NullCoalescing
+ │   │   │   ├─ expressions.operators.LogAnd
+ │   │   │   ├─ expressions.operators.LogOr
+ │   │   │   ├─ expressions.operators.LogXOr
+ │   │   │   ├─ expressions.operators.BitAnd
+ │   │   │   ├─ expressions.operators.BitOr
+ │   │   │   ├─ expressions.operators.BitXOr
+ │   │   │   ├─ expressions.operators.LShift
+ │   │   │   └─ expressions.operators.RShift
+ │   │   └─ expressions.operators.TernaryConditional
+ └─ statements.Statement*
+     ├─ procedure.ProcedureStmt
+     ├─ statements.Declaration
+     ├─ statements.Assignment
+     ├─ statements.If
+     │   └─ statements.Elif
+     ├─ statements.Else
+     ├─ statements.While
+     │   ├─ statements.DoWhile
+     │   └─ statements.For
+     ├─ statements.ForOf
+     └─ statements.objects.Object*
+         ├─ statements.objects.Enum
+         ├─ statements.objects.Struct
+         ├─ statements.objects.Namespace
+         └─ statements.objects.Class
 ```
