@@ -14,7 +14,7 @@ __all__ = ('Operation',
            'Add', 'Sub', 'Mult', 'MMul', 'Div', 'Mod', 'Exp',
            'EQ', 'NE', 'LT', 'LE', 'GT', 'GE', 'NullCoalescing',
            'LogAnd', 'LogOr', 'LogXOr',
-           'BitAnd', 'BitOr', 'BitXOr')
+           'BitAnd', 'BitOr', 'BitXOr', 'LShift', 'RShift')
 
 _dc = dataclass(slots=True)
 
@@ -118,3 +118,10 @@ class BitOr(_BinaryOp):
 @_dc
 class BitXOr(_BinaryOp):
     '''Represents a bitwise "exclusive or" operation'''
+### Shifts
+@_dc
+class LShift(_BinaryOp):
+    '''Represents a bitwise left-shift operation'''
+@_dc
+class RShift(_BinaryOp):
+    '''Represents a bitwise right-shift operation'''
