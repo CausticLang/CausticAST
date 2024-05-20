@@ -3,7 +3,7 @@ enum cst_OperatorType:char {
     POS, NEG, LOGINV, BITINV, INC, DEC,
     // Binary
     ADD, SUB, MULT, MMUL, DIV, MOD, POW,
-    EQ, NE, LT, LE, GT, GE,
+    EQ, NE, IS, ISNT, LT, LE, GT, GE,
     NULLCOALESCING,
     LOGAND, LOGOR, LOGXOR,
     BITAND, BITOR, BITXOR, LSHIFT, RSHIFT,
