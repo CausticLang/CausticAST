@@ -1,14 +1,14 @@
 enum cst_OperatorType:char {
     // Unary
-    POS, NEG, LOGINV, BITINV, INC, DEC,
+    POS = 1, NEG = 2, LOGINV = 3, BITINV = 4, INC = 5, DEC = 6,
     // Binary
-    ADD, SUB, MULT, MMUL, DIV, MOD, POW,
-    EQ, NE, IS, ISNT, LT, LE, GT, GE,
-    NULLCOALESCING,
-    LOGAND, LOGOR, LOGXOR,
-    BITAND, BITOR, BITXOR, LSHIFT, RSHIFT,
+    ADD = 7, SUB = 8, MULT = 9, MMUL = 10, DIV = 11, MOD = 12, POW = 13,
+    EQ = 14, NE = 15, IS = 16, ISNT = 17, LT = 18, LE = 19, GT = 20, GE = 21,
+    NULLCOALESCING = 22,
+    LOGAND = 23, LOGOR = 24, LOGXOR = 25,
+    BITAND = 26, BITOR = 27, BITXOR = 28, LSHIFT = 29, RSHIFT = 30,
     // Ternary
-    CONDITIONAL,
+    CONDITIONAL = 31,
 };
 
 
