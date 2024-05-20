@@ -1,3 +1,4 @@
+#if !cst_MKNODETYPE_IS_SOURCE
 enum cst_OperatorType:char {
     // Unary
     POS = 1, NEG = 2, LOGINV = 3, BITINV = 4, INC = 5, DEC = 6,
@@ -10,6 +11,7 @@ enum cst_OperatorType:char {
     // Ternary
     CONDITIONAL = 31,
 };
+#endif
 
 
 cst_MKNODETYPE(UnaryOp, enum cst_OperatorType op; cst_index target;, {

@@ -1,6 +1,8 @@
+#if !cst_MKNODETYPE_IS_SOURCE
 struct cst_ProcKwarg {
     cst_index key; cst_index val;
 };
+#endif
 
 cst_MKNODETYPE(ProcInvoke,
     cst_index proc;
@@ -16,11 +18,13 @@ cst_MKNODETYPE(ProcInvoke,
         n->kwarglen = kwarglen;
     }, cst_index proc, cst_index* args, size_t arglen, struct cst_ProcKwarg** kwargs, size_t kwarglen);
 
+#if !cst_MKNODETYPE_IS_SOURCE
 struct cst_ProcParam {
     cst_index type; cst_index name; cst_index val;
     bool has_default;
     enum:char {POS_ONLY = 1, POS_OR_KW = 2, KW_ONLY = 3} param_type;
 };
+#endif
 
 cst_MKNODETYPE(ProcExpr,
     cst_index rtype;

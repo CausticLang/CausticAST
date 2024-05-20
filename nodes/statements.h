@@ -29,9 +29,11 @@ cst_MKNODETYPE(WhileStmt, cst_index cond; cst_index body; bool do_while;, {
 
 cst_MKNODETYPE_E(PassStmt);
 
+#if !cst_MKNODETYPE_IS_SOURCE
 enum cst_FlowControlType:char {
     BREAK = 1, CONTINUE = 2,
 };
+#endif
 cst_MKNODETYPE_S(FlowControlStmt, enum cst_FlowControlType, type);
 
 cst_MKNODETYPE_S(ReturnStmt, cst_index, val);

@@ -7,6 +7,7 @@
 #include <malloc.h>
 #include <stdbool.h>
 
+#include "nodes.c"
 
 #define _cst_GENSERIALIZE(name, plural, ftype, ttype) \
     static inline void _cst_serialize_##name(ftype val, FILE* stream) { \

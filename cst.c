@@ -3,6 +3,7 @@
 
 #include "cst.h"
 
+#include "nodes.c"
 #include "node_free.c"
 #include "node_printer.c"
 
