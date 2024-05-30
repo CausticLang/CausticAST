@@ -1,0 +1,42 @@
+syntax = "proto2";
+
+option optimize_for = LITE_RUNTIME;
+
+package cst.procedures;
+
+message InvokationKwarg {
+    required uint32 key = 1;
+    required uint32 val = 2;
+}
+
+message Invokation {
+    required uint32 proc = 1;
+    repeated uint32 args = 2;
+    repeated InvokationKwarg kwargs = 3;
+}
+
+enum ProcParamType {
+    INVALID = 0;
+    POS_OR_KW = 2;
+    POS_ONLY = 1;
+    KW_ONLY = 3;
+}
+
+message ProcParam {
+    required uint32 type = 2;
+    required uint32 name = 1;
+    required uint32 val = 3 [default = 0];
+    required ProcParamType param_type = 4;
+}
+
+message ProcExpr {
+    required uint32 rtype = 1;
+    repeated ProcParam params = 2;
+    required uint32 body = 3;
+}
+message ProcStmt {
+    required uint32 name = 1;
+    required uint32 rtype = 2;
+    repeated ProcParam params = 3;
+    required uint32 body = 4 [default = 0];
+}

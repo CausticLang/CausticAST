@@ -1,65 +1,52 @@
-#ifndef cst_NODES_S_GUARD
-#define cst_NODES_S_GUARD 1
-
 #include "nodes.h"
 
-#include <malloc.h>
-#include <stdbool.h>
-#include <stddef.h>
-#include <stdint.h>
-#include <stdlib.h>
+#define _cst_NODES_IS_HEADER 0
+#define _cst_CREATE_NODE_FUNCS_(name, free_body, print_body) \
+    void cst_nfree_##name(cst_n##name* n) free_body; \
+    void cst_nprint_##name(FILE* s, cst_n##name* n) { \
+        fputs("Node type: " #name "\n", s); \
+        print_body \
+    }
+#define _cst_CREATE_NODE_FUNCS(name, free_body, print_body, init_body, init_name, ...) \
+    cst_n##name* cst_ninit_##name(cst_n##name* n, __VA_ARGS__) { \
+        *n = (cst_n##name)CST__##init_name##__INIT; \
+        init_body \
+        return n; \
+    } \
+    _cst_CREATE_NODE_FUNCS_(name, free_body, print_body)
+#define _cst_CREATE_NODE_FUNCS_NIP(name, free_body, print_body, init_body, init_name) \
+    cst_n##name* cst_ninit_##name(cst_n##name* n) { \
+        *n = (cst_n##name)CST__##init_name##__INIT; \
+        init_body \
+        return n; \
+    } \
+    _cst_CREATE_NODE_FUNCS_(name, free_body, print_body)
 
-void cst_node_add(struct cst_Root* root, struct cst_NodeBase* node) {
-    root->nodes = realloc(root->nodes, sizeof(struct cst_NodeBase*) * ++root->node_count);
-    root->nodes[root->node_count-1] = node;
-}
+#include "protobuf/nodes.pb-c.c"
 
-#undef cst_MKNODETYPE
-#define cst_MKNODETYPE(name, members, body, ...) \
-    struct cst_n##name* cst_ninit_##name(struct cst_n##name* n, unsigned int p_start, unsigned int p_end, unsigned int lno, unsigned int cno, __VA_ARGS__) { \
-        cst_NODEDOWNCAST(n)->type = name; \
-        cst_NODEDOWNCAST(n)->is_freed = false; \
-        cst_NODEDOWNCAST(n)->pos_start = p_start; \
-        cst_NODEDOWNCAST(n)->pos_end = p_end; \
-        cst_NODEDOWNCAST(n)->lineno = lno; \
-        cst_NODEDOWNCAST(n)->colno = cno; \
-        body; return n; }
+#include "protobuf/accesses.pb-c.c"
+#include "nodes/accesses.ch"
 
-#undef cst_MKNODETYPE_S
-#define cst_MKNODETYPE_S(name, mtype, mname) \
-    cst_MKNODETYPE(name, mtype mname;, {n->mname = mname;}, mtype mname)
-#undef cst_MKNODETYPE_E
-#define cst_MKNODETYPE_E(name) \
-    struct cst_n##name* cst_ninit_##name(struct cst_n##name* n, unsigned int p_start, unsigned int p_end, unsigned int lno, unsigned int cno) { \
-        cst_NODEDOWNCAST(n)->type = name; \
-        cst_NODEDOWNCAST(n)->is_freed = false; \
-        cst_NODEDOWNCAST(n)->pos_start = p_start; \
-        cst_NODEDOWNCAST(n)->pos_end = p_end; \
-        cst_NODEDOWNCAST(n)->lineno = lno; \
-        cst_NODEDOWNCAST(n)->colno = cno; \
-        return n; }
+#include "protobuf/atoms.pb-c.c"
+#include "nodes/atoms.ch"
 
-#undef cst_MKNODETYPE_IS_SOURCE
-#define cst_MKNODETYPE_IS_SOURCE 1
+#include "protobuf/control.pb-c.c"
+#include "nodes/control.ch"
 
-cst_MKNODETYPE(Entrypoint, unsigned int eof_pos; cst_index node;, {
-    n->eof_pos = eof_pos;
-    n->node = node;
-}, unsigned int eof_pos, cst_index node);
+#include "protobuf/operators.pb-c.c"
+#include "nodes/operators.ch"
 
-cst_MKNODETYPE(ExtraData, char* meta; char* data; bool static_meta;, {
-    n->meta = meta;
-    n->data = data;
-    n->static_meta = static_meta;
-}, char* meta, char* data, bool static_meta);
+#include "protobuf/procedures.pb-c.c"
+#include "nodes/procedures.ch"
 
-#include "nodes/access.h"
-#include "nodes/atoms.h"
-#include "nodes/block.h"
-#include "nodes/operators.h"
-#include "nodes/procedures.h"
-#include "nodes/statements.h"
-#include "nodes/types.h"
+#include "protobuf/statements.pb-c.c"
+#include "nodes/statements.ch"
 
+#include "protobuf/types.pb-c.c"
+#include "nodes/types.ch"
 
-#endif
+#undef _cst_NODES_IS_HEADER
+#undef _cst_CREATE_NODE_FUNCS_
+#undef _cst_CREATE_NODE_FUNCS
+#undef _cst_CREATE_NODE_FUNCS_ONEPARAM
+#undef _cst_CREATE_NODE_FUNCS_NOPARAMS

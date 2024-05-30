@@ -1,112 +1,86 @@
-#ifndef cst_NODES_H_GUARD
-#define cst_NODES_H_GUARD 1
-
-#include <stdbool.h>
 #include <stddef.h>
 #include <stdint.h>
-#include <stdlib.h>
+#include <stdio.h>
 
+#include "protobuf/nodes.pb-c.h"
 
-typedef uint16_t cst_index;
+#define cst_NODECAST(base, to) ((cst_n##to*)((base)->val))
 
-enum cst_NodeType:char {
-    // Control
-    Entrypoint = 0,
-    ExtraData = 127,
-    Block = 16,
-    // Types
-    Type = 24,
-    Enum = 27,
-    Struct = 28,
-    StructEnum = 29,
-    Class = 30,
-    // Expressions
-    /// Atoms
-    Identifier = 1,
-    Bool = 2,
-    Integer = 3,
-    Float = 4,
-    Char = 5,
-    Bytes = 6,
-    String = 7,
-    /// Operations
-    UnaryOp = 8,
-    BinaryOp = 9,
-    TernaryOp = 10,
-    /// Accesses
-    Attribute = 11,
-    Subscript = 12,
-    /// Procedures
-    ProcInvoke = 13,
-    ProcExpr = 14,
-    // Statements
-    ProcStmt = 15,
-    IfStmt = 17,
-    ElIfStmt = 18,
-    ElseStmt = 19,
-    ForStmt = 20,
-    WhileStmt = 21,
-    PassStmt = 22,
-    FlowControlStmt = 23,
-    ReturnStmt = 31,
-    Declaration = 25,
-    Assignment = 26,
-};
+#define cst_NODEDOWNCAST(node) ( node \
+    - sizeof(ProtobufCMessage) /* base */ \
+    - (sizeof(uint32_t) * 4) /* pos_start + pos_end + lineno + colno */ \
+    - sizeof(Cst__Node__NodeCase) /* node_case */ \
+    )
+#undef cst_NODEDOWNCAST // BAD IDEA
 
-struct cst_NodeBase {
-    enum cst_NodeType type;
-    bool is_freed;
-    unsigned int pos_start;
-    unsigned int pos_end;
-    unsigned int lineno;
-    unsigned int colno;
-};
+#define cst_NTYPEIS(node, type) ((node)->node_case == CST__NODE__NODE_##type)
 
-struct cst_Root {
-    size_t node_count;
-    struct cst_NodeBase** nodes;
-};
+typedef uint32_t cst_index;
 
-void cst_node_add(struct cst_Root* root, struct cst_NodeBase* node);
+#define _cst_NODES_IS_HEADER 1
 
-#define cst_MKNODETYPE(name, members, body, ...) \
-    struct cst_n##name { \
-        struct cst_NodeBase _base; \
-        members \
-    }; \
-    struct cst_n##name* cst_ninit_##name(struct cst_n##name* n, unsigned int p_start, unsigned int p_end, unsigned int lno, unsigned int cno, __VA_ARGS__)
+#define _cst_CREATE_NODE_FUNCS(name, free_body, print_body, init_body, init_name, ...) \
+    cst_n##name* cst_ninit_##name(cst_n##name* n, __VA_ARGS__); \
+    void cst_nprint_##name(FILE* s, cst_n##name* n); \
+    void cst_nfree_##name(cst_n##name* n);
+#define _cst_CREATE_NODE_FUNCS_NIP(name, free_body, print_body, init_body, init_name) /* NIP = No Init Params */ \
+    cst_n##name* cst_ninit_##name(cst_n##name* n); \
+    void cst_nprint_##name(FILE* s, cst_n##name* n); \
+    void cst_nfree_##name(cst_n##name* n);
 
-#define cst_MKNODETYPE_S(name, mtype, mname) \
-    cst_MKNODETYPE(name, mtype mname;, {n->mname = mname;}, mtype mname)
-#define cst_MKNODETYPE_E(name) \
-    struct cst_n##name { \
-        struct cst_NodeBase _base; \
-    }; \
-    struct cst_n##name* cst_ninit_##name(struct cst_n##name* n, unsigned int p_start, unsigned int p_end, unsigned int lno, unsigned int cno)
+// nodes.pb-c.h
+typedef Cst__Root cst_Root;
+typedef Cst__Node__NodeCase cst_NodeType;
+typedef Cst__Node cst_Node;
+// accesses.pb-c.h
+typedef Cst__Accesses__Attribute cst_nAttribute;
+typedef Cst__Accesses__Subscript cst_nSubscript;
+#include "nodes/accesses.ch"
+// atoms.pb-c.h
+typedef Cst__Atoms__Identifier cst_nIdentifier;
+typedef Cst__Atoms__Bool cst_nBool;
+typedef Cst__Atoms__Integer cst_nInteger;
+typedef Cst__Atoms__Float cst_nFloat;
+typedef Cst__Atoms__Char cst_nChar;
+typedef Cst__Atoms__Bytes cst_nBytes;
+typedef Cst__Atoms__String cst_nString;
+#include "nodes/atoms.ch"
+// control.pb-c.h
+typedef Cst__Control__Entrypoint cst_nEntrypoint;
+typedef Cst__Control__Block cst_nBlock;
+typedef Cst__Control__ExtraData cst_nExtraData;
+#include "nodes/control.ch"
+// operators.pb-c.h
+typedef Cst__Operators__UnaryOp cst_nUnaryOp;
+typedef Cst__Operators__BinaryOp cst_nBinaryOp;
+typedef Cst__Operators__TernaryOp cst_nTernaryOp;
+#include "nodes/operators.ch"
+// procedures.pb-c.h
+typedef Cst__Procedures__Invokation cst_nInvokation;
+typedef Cst__Procedures__ProcParam cst_nProcParam;
+typedef Cst__Procedures__ProcExpr cst_nProcExpr;
+typedef Cst__Procedures__ProcStmt cst_nProcStmt;
+#include "nodes/procedures.ch"
+// statements.pb-c.h
+typedef Cst__Statements__If cst_nIf;
+typedef Cst__Statements__ElIf cst_nElIf;
+typedef Cst__Statements__Else cst_nElse;
+typedef Cst__Statements__For cst_nFor;
+typedef Cst__Statements__While cst_nWhile;
+typedef Cst__Statements__Declaration cst_nDeclaration;
+typedef Cst__Statements__Assignment cst_nAssignment;
+typedef Cst__Statements__Return cst_nReturn;
+typedef Cst__Statements__Pass cst_nPass;
+typedef Cst__Statements__FlowCtl cst_nFlowCtl;
+#include "nodes/statements.ch"
+// types.pb-c.h
+typedef Cst__Types__Type cst_nType;
+typedef Cst__Types__Enum cst_nEnum;
+typedef Cst__Types__Struct cst_nStruct;
+typedef Cst__Types__StructEnum cst_nStructEnum;
+typedef Cst__Types__Class cst_nClass;
+#include "nodes/types.ch"
 
-#define cst_MKNODETYPE_IS_SOURCE 0
-
-#define cst_NODECAST(type, node) ((struct cst_n##type*)node)
-#define cst_NODEDOWNCAST(node) ((struct cst_NodeBase*)node)
-
-cst_MKNODETYPE(Entrypoint, unsigned int eof_pos; cst_index node;, {
-    n->eof_pos = eof_pos;
-    n->node = node;
-}, unsigned int eof_pos, cst_index node);
-
-cst_MKNODETYPE(ExtraData, char* meta; char* data; bool static_meta;, {
-    n->meta = meta;
-    n->data = data;
-    n->static_meta = static_meta;
-}, char* meta, char* data, bool static_meta);
-
-#include "nodes/access.h"
-#include "nodes/atoms.h"
-#include "nodes/block.h"
-#include "nodes/operators.h"
-#include "nodes/procedures.h"
-#include "nodes/statements.h"
-#include "nodes/types.h"
-
-
-#endif
+#undef _cst_NODES_IS_HEADER
+#undef _cst_CREATE_NODE_FUNCS
+#undef _cst_CREATE_NODE_FUNCS_NIP

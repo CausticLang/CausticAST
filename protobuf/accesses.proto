@@ -1,0 +1,14 @@
+syntax = "proto2";
+
+option optimize_for = LITE_RUNTIME;
+
+package cst.accesses;
+
+message Attribute {
+    required uint32 top = 1;
+    required uint32 sub = 2;
+}
+message Subscript {
+    required uint32 top = 1;
+    required uint32 sub = 2;
+}

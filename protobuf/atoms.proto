@@ -1,0 +1,35 @@
+syntax = "proto2";
+
+option optimize_for = LITE_RUNTIME;
+
+package cst.atoms;
+
+message Identifier {
+    required string val = 1;
+}
+
+message Bool {
+    required bool val = 1;
+}
+message Integer {
+    required string val = 1;
+    required uint32 intbase = 2 [default = 10];
+}
+message Float {
+    required string integer = 1;
+    required string fractional = 2;
+    required sint32 exp = 3 [default = 1];
+}
+
+message Char {
+    required string val = 1;
+}
+
+message Bytes {
+    required string val = 1;
+    required bool raw = 2 [default = false];
+}
+message String { 
+    required string val = 1;
+    required bool raw = 2 [default = false];
+}

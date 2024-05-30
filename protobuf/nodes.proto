@@ -1,0 +1,72 @@
+syntax = "proto2";
+
+option optimize_for = LITE_RUNTIME;
+
+import "accesses.proto";
+import "atoms.proto";
+import "control.proto";
+import "operators.proto";
+import "procedures.proto";
+import "statements.proto";
+import "types.proto";
+
+package cst;
+
+message Root {
+    repeated Node nodes = 1;
+}
+
+message _DummyEmpty {}
+
+message Node {
+    required uint32 pos_start = 1;
+    required uint32 pos_end = 2;
+    required uint32 lineno = 3;
+    required uint32 colno = 4;
+    oneof node {
+        _DummyEmpty val = 127;
+        // Control
+        control.Entrypoint ENTRYPOINT = 5;
+        control.ExtraData EXTRADATA = 6;
+        control.Block BLOCK = 7;
+        // Types
+        types.Type TYPE = 8;
+        types.Enum ENUM = 9;
+        types.Struct STRUCT = 10;
+        types.StructEnum STRUCTENUM = 11;
+        types.Class CLASS = 12;
+        // Atoms
+        atoms.Identifier IDENTIFIER = 13;
+        atoms.Bool BOOL = 14;
+        atoms.Integer INTEGER = 15;
+        atoms.Float FLOAT = 16;
+        atoms.Char CHAR = 17;
+        atoms.Bytes BYTES = 18;
+        atoms.String STRING = 19;
+        // Operators
+        operators.UnaryOp UNARYOP = 20;
+        operators.BinaryOp BINARYOP = 21;
+        operators.TernaryOp TERNARYOP = 22;
+        // Accesses
+        accesses.Attribute ATTRIBUTE = 23;
+        accesses.Subscript SUBSCRIPT = 24;
+        // Procedures
+        procedures.Invokation INVOKATION = 25;
+        procedures.ProcExpr PROCEXPR = 26;
+        procedures.ProcStmt PROCSTMT = 27;
+        // Conditionals
+        statements.If IF = 28;
+        statements.ElIf ELIF = 29;
+        statements.Else ELSE = 30;
+        // Loops
+        statements.For FOR = 31;
+        statements.While WHILE = 32;
+        // Declaration
+        statements.Declaration DECLARATION = 33;
+        statements.Assignment ASSIGNMENT = 34;
+        // Misc. statements
+        statements.Return RETURN = 35;
+        statements.Pass PASS = 36;
+        statements.FlowCtl FLOWCTL = 37;
+    }
+}

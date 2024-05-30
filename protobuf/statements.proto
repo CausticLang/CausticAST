@@ -1,0 +1,59 @@
+syntax = "proto2";
+
+option optimize_for = LITE_RUNTIME;
+
+package cst.statements;
+
+// Conditionals
+message If {
+    required uint32 condition = 1;
+    required uint32 body = 2 [default = 0];
+    required uint32 next = 3 [default = 0];
+}
+message ElIf {
+    required uint32 condition = 1;
+    required uint32 body = 2 [default = 0];
+    required uint32 next = 3 [default = 0];
+}
+message Else {
+    required uint32 body = 1 [default = 0];
+}
+
+// Loops
+message For {
+    required uint32 init = 1 [default = 0];
+    required uint32 condition = 2  [default = 0];
+    required uint32 iterate = 3 [default = 0];
+    required uint32 body = 4 [default = 0];
+}
+message While {
+    required uint32 condition = 1;
+    required uint32 body = 2 [default = 0];
+    required bool do_while = 3 [default = false];
+}
+
+// Declarations
+message Declaration {
+    required uint32 type = 1;
+    required uint32 name = 2;
+    required uint32 val = 3 [default = 0];
+}
+message Assignment {
+    required uint32 target = 1;
+    required uint32 val = 2;
+}
+
+// Misc. statements
+message Return {
+    required uint32 val = 1 [default = 0];
+}
+
+message Pass {}
+
+enum FlowCtlType {
+    INVALID = 0;
+    BREAK = 1; CONTINUE = 2;
+}
+message FlowCtl {
+    required FlowCtlType type = 1;
+}
