@@ -120,3 +120,38 @@ typedef Cst__Types__Class cst_nClass;
     cst_nStruct: cst_nfree_Struct(n), \
     cst_nStructEnum: cst_nfree_StructEnum(n), \
     cst_nClass: cst_nfree_Class(n)
+
+#define cst_NODEPRINT(s, n) _Generic(n, \
+    cst_nAttribute: cst_nprint_Attribute(s, n), \
+    cst_nSubscript: cst_nprint_Subscript(s, n), \
+    cst_nIdentifier: cst_nprint_Identifier(s, n), \
+    cst_nBool: cst_nprint_Bool(s, n), \
+    cst_nInteger: cst_nprint_Integer(s, n), \
+    cst_nFloat: cst_nprint_Float(s, n), \
+    cst_nBytes: cst_nprint_Bytes(s, n), \
+    cst_nString: cst_nprint_String(s, n), \
+    cst_nEntrypoint: cst_nprint_Entrypoint(s, n), \
+    cst_nBlock: cst_nprint_Block(s, n), \
+    cst_nExtraData: cst_nprint_ExtraData(s, n), \
+    cst_nUnaryOp: cst_nprint_UnaryOp(s, n), \
+    cst_nBinaryOp: cst_nprint_BinaryOp(s, n), \
+    cst_nTernaryOp: cst_nprint_TernaryOp(s, n), \
+    cst_nInvokation: cst_nprint_Invokation(s, n), \
+    cst_nProcParam: cst_nprint_ProcParam(s, n), \
+    cst_nProcExpr: cst_nprint_ProcExpr(s, n), \
+    cst_nProcStmt: cst_nprint_ProcStmt(s, n), \
+    cst_nIf: cst_nprint_If(s, n), \
+    cst_nElIf: cst_nprint_ElIf(s, n), \
+    cst_nElse: cst_nprint_Else(s, n), \
+    cst_nFor: cst_nprint_For(s, n), \
+    cst_nWhile: cst_nprint_While(s, n), \
+    cst_nDeclaration: cst_nprint_Declaration(s, n), \
+    cst_nAssignment: cst_nprint_Assignment(s, n), \
+    cst_nReturn: cst_nprint_Return(s, n), \
+    cst_nPass: cst_nprint_Pass(s, n), \
+    cst_nFlowCtl: cst_nprint_FlowCtl(s, n), \
+    cst_nType: cst_nprint_Type(s, n), \
+    cst_nEnum: cst_nprint_Enum(s, n), \
+    cst_nStruct: cst_nprint_Struct(s, n), \
+    cst_nStructEnum: cst_nprint_StructEnum(s, n), \
+    cst_nClass: cst_nprint_Class(s, n)
