@@ -1,3 +1,6 @@
+#ifndef cst_NODES_C
+#define cst_NODES_C 1
+
 #include "nodes.h"
 
 #include <assert.h>
@@ -76,3 +79,5 @@ void cst_free_node(cst_Node* n) {
     cst_GENERIC_NOARGS(n, cst_nfree_, assert(false));
     free(n->val);
 }
+
+#endif // cst_NODES_C

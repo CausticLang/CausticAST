@@ -1,3 +1,6 @@
+#ifndef cst_NODES_H
+#define cst_NODES_H 1
+
 #include <stddef.h>
 #include <stdint.h>
 #include <stdio.h>
@@ -96,3 +99,5 @@ void cst_free_node(cst_Node* n);
 } while(0)
 
 #include "node_generics.h"
+
+#endif // cst_NODES_H

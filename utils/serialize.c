@@ -1,3 +1,6 @@
+#ifndef cst_UTILS_SERIALIZE_C
+#define cst_UTILS_SERIALIZE_C 1
+
 #include "serialize.h"
 
 #include <stdio.h>
@@ -53,3 +56,5 @@ cst_Root* cst_deserialize_from(FILE* stream) {
 cst_Root* cst_deserialize(uint8_t* data, size_t len) {
     return cst__root__unpack(NULL, len, data);
 }
+
+#endif // cst_UTILS_SERIALIZE_C
