@@ -22,12 +22,12 @@ typedef uint32_t cst_index;
 
 #define _cst_CREATE_NODE_FUNCS(name, free_body, print_body, init_body, init_name, ...) \
     cst_n##name* cst_ninit_##name(cst_n##name* n, __VA_ARGS__); \
-    cst_Node* cst_binit_##name(cst_Node* b, __VA_ARGS__); \
+    cst_Node* cst_binit_##name(cst_Node* base, cst_n##name* n); \
     void cst_nprint_##name(FILE* s, cst_n##name* n); \
     void cst_nfree_##name(cst_n##name* n);
 #define _cst_CREATE_NODE_FUNCS_NIP(name, free_body, print_body, init_body, init_name) /* NIP = No Init Params */ \
     cst_n##name* cst_ninit_##name(cst_n##name* n); \
-    cst_Node* cst_binit_##name(cst_Node* b); \
+    cst_Node* cst_binit_##name(cst_Node* base, cst_n##name* n); \
     void cst_nprint_##name(FILE* s, cst_n##name* n); \
     void cst_nfree_##name(cst_n##name* n);
 
@@ -126,74 +126,73 @@ typedef Cst__Types__Class cst_nClass;
 #define cst_EMPTYNODE CST__NODE__INIT
 
 #define cst_NODEFREE(n) _Generic(n, \
-    cst_nAttribute: cst_nfree_Attribute(n), \
-    cst_nSubscript: cst_nfree_Subscript(n), \
-    cst_nIdentifier: cst_nfree_Identifier(n), \
-    cst_nBool: cst_nfree_Bool(n), \
-    cst_nInteger: cst_nfree_Integer(n), \
-    cst_nFloat: cst_nfree_Float(n), \
-    cst_nBytes: cst_nfree_Bytes(n), \
-    cst_nString: cst_nfree_String(n), \
-    cst_nEntrypoint: cst_nfree_Entrypoint(n), \
-    cst_nBlock: cst_nfree_Block(n), \
-    cst_nExtraData: cst_nfree_ExtraData(n), \
-    cst_nUnaryOp: cst_nfree_UnaryOp(n), \
-    cst_nBinaryOp: cst_nfree_BinaryOp(n), \
-    cst_nTernaryOp: cst_nfree_TernaryOp(n), \
-    cst_nInvokation: cst_nfree_Invokation(n), \
-    cst_nProcParam: cst_nfree_ProcParam(n), \
-    cst_nProcExpr: cst_nfree_ProcExpr(n), \
-    cst_nProcStmt: cst_nfree_ProcStmt(n), \
-    cst_nIf: cst_nfree_If(n), \
-    cst_nElIf: cst_nfree_ElIf(n), \
-    cst_nElse: cst_nfree_Else(n), \
-    cst_nFor: cst_nfree_For(n), \
-    cst_nWhile: cst_nfree_While(n), \
-    cst_nDeclaration: cst_nfree_Declaration(n), \
-    cst_nAssignment: cst_nfree_Assignment(n), \
-    cst_nReturn: cst_nfree_Return(n), \
-    cst_nPass: cst_nfree_Pass(n), \
-    cst_nFlowCtl: cst_nfree_FlowCtl(n), \
-    cst_nType: cst_nfree_Type(n), \
-    cst_nEnum: cst_nfree_Enum(n), \
-    cst_nStruct: cst_nfree_Struct(n), \
-    cst_nStructEnum: cst_nfree_StructEnum(n), \
-    cst_nClass: cst_nfree_Class(n)
+    cst_nAttribute*: cst_nfree_Attribute(n), \
+    cst_nSubscript*: cst_nfree_Subscript(n), \
+    cst_nIdentifier*: cst_nfree_Identifier(n), \
+    cst_nBool*: cst_nfree_Bool(n), \
+    cst_nInteger*: cst_nfree_Integer(n), \
+    cst_nFloat*: cst_nfree_Float(n), \
+    cst_nBytes*: cst_nfree_Bytes(n), \
+    cst_nString*: cst_nfree_String(n), \
+    cst_nEntrypoint*: cst_nfree_Entrypoint(n), \
+    cst_nBlock*: cst_nfree_Block(n), \
+    cst_nExtraData*: cst_nfree_ExtraData(n), \
+    cst_nUnaryOp*: cst_nfree_UnaryOp(n), \
+    cst_nBinaryOp*: cst_nfree_BinaryOp(n), \
+    cst_nTernaryOp*: cst_nfree_TernaryOp(n), \
+    cst_nInvokation*: cst_nfree_Invokation(n), \
+    cst_nProcParam*: cst_nfree_ProcParam(n), \
+    cst_nProcExpr*: cst_nfree_ProcExpr(n), \
+    cst_nProcStmt*: cst_nfree_ProcStmt(n), \
+    cst_nIf*: cst_nfree_If(n), \
+    cst_nElIf*: cst_nfree_ElIf(n), \
+    cst_nElse*: cst_nfree_Else(n), \
+    cst_nFor*: cst_nfree_For(n), \
+    cst_nWhile*: cst_nfree_While(n), \
+    cst_nDeclaration*: cst_nfree_Declaration(n), \
+    cst_nAssignment*: cst_nfree_Assignment(n), \
+    cst_nReturn*: cst_nfree_Return(n), \
+    cst_nPass*: cst_nfree_Pass(n), \
+    cst_nFlowCtl*: cst_nfree_FlowCtl(n), \
+    cst_nType*: cst_nfree_Type(n), \
+    cst_nEnum*: cst_nfree_Enum(n), \
+    cst_nStruct*: cst_nfree_Struct(n), \
+    cst_nStructEnum*: cst_nfree_StructEnum(n), \
+    cst_nClass*: cst_nfree_Class(n))
 
 #define cst_NODEPRINT(s, n) _Generic(n, \
-    cst_nAttribute: cst_nprint_Attribute(s, n), \
-    cst_nSubscript: cst_nprint_Subscript(s, n), \
-    cst_nIdentifier: cst_nprint_Identifier(s, n), \
-    cst_nBool: cst_nprint_Bool(s, n), \
-    cst_nInteger: cst_nprint_Integer(s, n), \
-    cst_nFloat: cst_nprint_Float(s, n), \
-    cst_nBytes: cst_nprint_Bytes(s, n), \
-    cst_nString: cst_nprint_String(s, n), \
-    cst_nEntrypoint: cst_nprint_Entrypoint(s, n), \
-    cst_nBlock: cst_nprint_Block(s, n), \
-    cst_nExtraData: cst_nprint_ExtraData(s, n), \
-    cst_nUnaryOp: cst_nprint_UnaryOp(s, n), \
-    cst_nBinaryOp: cst_nprint_BinaryOp(s, n), \
-    cst_nTernaryOp: cst_nprint_TernaryOp(s, n), \
-    cst_nInvokation: cst_nprint_Invokation(s, n), \
-    cst_nProcParam: cst_nprint_ProcParam(s, n), \
-    cst_nProcExpr: cst_nprint_ProcExpr(s, n), \
-    cst_nProcStmt: cst_nprint_ProcStmt(s, n), \
-    cst_nIf: cst_nprint_If(s, n), \
-    cst_nElIf: cst_nprint_ElIf(s, n), \
-    cst_nElse: cst_nprint_Else(s, n), \
-    cst_nFor: cst_nprint_For(s, n), \
-    cst_nWhile: cst_nprint_While(s, n), \
-    cst_nDeclaration: cst_nprint_Declaration(s, n), \
-    cst_nAssignment: cst_nprint_Assignment(s, n), \
-    cst_nReturn: cst_nprint_Return(s, n), \
-    cst_nPass: cst_nprint_Pass(s, n), \
-    cst_nFlowCtl: cst_nprint_FlowCtl(s, n), \
-    cst_nType: cst_nprint_Type(s, n), \
-    cst_nEnum: cst_nprint_Enum(s, n), \
-    cst_nStruct: cst_nprint_Struct(s, n), \
-    cst_nStructEnum: cst_nprint_StructEnum(s, n), \
-    cst_nClass: cst_nprint_Class(s, n)
+    cst_nAttribute*: cst_nprint_Attribute, \
+    cst_nSubscript*: cst_nprint_Subscript, \
+    cst_nIdentifier*: cst_nprint_Identifier, \
+    cst_nBool*: cst_nprint_Bool, \
+    cst_nInteger*: cst_nprint_Integer, \
+    cst_nFloat*: cst_nprint_Float, \
+    cst_nBytes*: cst_nprint_Bytes, \
+    cst_nString*: cst_nprint_String, \
+    cst_nEntrypoint*: cst_nprint_Entrypoint, \
+    cst_nBlock*: cst_nprint_Block, \
+    cst_nExtraData*: cst_nprint_ExtraData, \
+    cst_nUnaryOp*: cst_nprint_UnaryOp, \
+    cst_nBinaryOp*: cst_nprint_BinaryOp, \
+    cst_nTernaryOp*: cst_nprint_TernaryOp, \
+    cst_nInvokation*: cst_nprint_Invokation, \
+    cst_nProcExpr*: cst_nprint_ProcExpr, \
+    cst_nProcStmt*: cst_nprint_ProcStmt, \
+    cst_nIf*: cst_nprint_If, \
+    cst_nElIf*: cst_nprint_ElIf, \
+    cst_nElse*: cst_nprint_Else, \
+    cst_nFor*: cst_nprint_For, \
+    cst_nWhile*: cst_nprint_While, \
+    cst_nDeclaration*: cst_nprint_Declaration, \
+    cst_nAssignment*: cst_nprint_Assignment, \
+    cst_nReturn*: cst_nprint_Return, \
+    cst_nPass*: cst_nprint_Pass, \
+    cst_nFlowCtl*: cst_nprint_FlowCtl, \
+    cst_nType*: cst_nprint_Type, \
+    cst_nEnum*: cst_nprint_Enum, \
+    cst_nStruct*: cst_nprint_Struct, \
+    cst_nStructEnum*: cst_nprint_StructEnum, \
+    cst_nClass*: cst_nprint_Class)(s, n)
 
 #define cst_ADDNODE(r, n) do { \
     realloc(r->nodes, sizeof(cst_Node) * ++r->n_nodes); \

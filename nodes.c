@@ -2,10 +2,10 @@
 
 #define _cst_NODES_IS_HEADER 0
 #define _cst_CREATE_NODE_FUNCS_(name, free_body, print_body) \
-    cst_Node* cst_binit_##name(cst_Node* b, cst_n##name* n, __VA_ARGS__) { \
-        *b = cst_EMPTYNODE; \
-        b->val = n; \
-        b->node_case = cst_NTYPE_##name; \
+    cst_Node* cst_binit_##name(cst_Node* base, cst_n##name* n) { \
+        *base = (cst_Node)cst_EMPTYNODE; \
+        base->val = (Cst__DummyEmpty*)n; \
+        base->node_case = cst_NTYPE_##name; \
     } \
     void cst_nfree_##name(cst_n##name* n) free_body; \
     void cst_nprint_##name(FILE* s, cst_n##name* n) { \
