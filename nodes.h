@@ -91,8 +91,8 @@ void cst_print_node(FILE* s, cst_Node* n);
 void cst_free_node(cst_Node* n);
 
 #define cst_ADDNODE(r, n) do { \
-    realloc(r->nodes, sizeof(cst_Node) * ++r->n_nodes); \
-    r->nodes[r->n_nodes-1] = n; \
+    realloc((r)->nodes, sizeof(cst_Node) * ++(r)->n_nodes); \
+    (r)->nodes[(r)->n_nodes-1] = n; \
 } while(0)
 
 #include "node_generics.h"
