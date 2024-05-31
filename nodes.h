@@ -1,3 +1,4 @@
+#include <malloc.h>
 #include <stddef.h>
 #include <stdint.h>
 #include <stdio.h>
@@ -85,6 +86,8 @@ typedef Cst__Types__Class cst_nClass;
 #undef _cst_CREATE_NODE_FUNCS
 #undef _cst_CREATE_NODE_FUNCS_NIP
 
+#define cst_INITROOT CST__ROOT__INIT
+#define cst_EMPTYNODE CST__NODE__INIT
 
 #define cst_NODEFREE(n) _Generic(n, \
     cst_nAttribute: cst_nfree_Attribute(n), \
@@ -155,3 +158,8 @@ typedef Cst__Types__Class cst_nClass;
     cst_nStruct: cst_nprint_Struct(s, n), \
     cst_nStructEnum: cst_nprint_StructEnum(s, n), \
     cst_nClass: cst_nprint_Class(s, n)
+
+#define cst_ADDNODE(r, n) do { \
+    realloc(r->nodes, sizeof(cst_Node) * ++r->n_nodes); \
+    r->nodes[r->n_nodes-1] = n; \
+} while(0)
