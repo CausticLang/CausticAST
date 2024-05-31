@@ -1,5 +1,7 @@
 #include "nodes.h"
 
+#include <assert.h>
+
 #define _cst_NODES_IS_HEADER 0
 #define _cst_CREATE_NODE_FUNCS_(name, free_body, print_body) \
     cst_Node* cst_binit_##name(cst_Node* base, cst_n##name* n) { \
@@ -55,3 +57,13 @@
 #undef _cst_CREATE_NODE_FUNCS
 #undef _cst_CREATE_NODE_FUNCS_ONEPARAM
 #undef _cst_CREATE_NODE_FUNCS_NOPARAMS
+
+void cst_print_node(FILE* s, cst_Node* n) {
+    fprintf(s, " - pos_start[uint]: %u\n"
+               " - pos_end[uint]:   %u\n"
+               " - lineno[uint]:    %u\n"
+               " - colno[uint]:     %u\n"
+               " - node_case:       %d\n"
+               " ^ ", n->pos_start, n->pos_end, n->lineno, n->colno, n->node_case);
+    cst_GENERIC_SFXARGS(n, cst_nprint_, assert(false), s);
+}

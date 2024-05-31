@@ -88,6 +88,8 @@ typedef Cst__Types__Class cst_nClass;
 #undef _cst_CREATE_NODE_FUNCS
 #undef _cst_CREATE_NODE_FUNCS_NIP
 
+void cst_print_node(FILE* s, cst_Node* n);
+
 #define cst_NTYPE_Entrypoint CST__NODE__NODE_ENTRYPOINT
 #define cst_NTYPE_ExtraData CST__NODE__NODE_EXTRADATA
 #define cst_NTYPE_Block CST__NODE__NODE_BLOCK
