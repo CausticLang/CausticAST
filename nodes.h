@@ -22,10 +22,12 @@ typedef uint32_t cst_index;
 
 #define _cst_CREATE_NODE_FUNCS(name, free_body, print_body, init_body, init_name, ...) \
     cst_n##name* cst_ninit_##name(cst_n##name* n, __VA_ARGS__); \
+    cst_Node* cst_binit_##name(cst_Node* b, __VA_ARGS__); \
     void cst_nprint_##name(FILE* s, cst_n##name* n); \
     void cst_nfree_##name(cst_n##name* n);
 #define _cst_CREATE_NODE_FUNCS_NIP(name, free_body, print_body, init_body, init_name) /* NIP = No Init Params */ \
     cst_n##name* cst_ninit_##name(cst_n##name* n); \
+    cst_Node* cst_binit_##name(cst_Node* b); \
     void cst_nprint_##name(FILE* s, cst_n##name* n); \
     void cst_nfree_##name(cst_n##name* n);
 
