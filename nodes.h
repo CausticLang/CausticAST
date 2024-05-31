@@ -1,4 +1,3 @@
-#include <malloc.h>
 #include <stddef.h>
 #include <stdint.h>
 #include <stdio.h>
@@ -89,6 +88,7 @@ typedef Cst__Types__Class cst_nClass;
 /* functions and useful function macros */
 
 void cst_print_node(FILE* s, cst_Node* n);
+void cst_free_node(cst_Node* n);
 
 #define cst_ADDNODE(r, n) do { \
     realloc(r->nodes, sizeof(cst_Node) * ++r->n_nodes); \

@@ -1,6 +1,7 @@
 #include "nodes.h"
 
 #include <assert.h>
+#include <malloc.h>
 
 /* generate node functions (body) */
 
@@ -70,4 +71,8 @@ void cst_print_node(FILE* s, cst_Node* n) {
                " - node_case:       %d\n"
                " ^ ", n->pos_start, n->pos_end, n->lineno, n->colno, n->node_case);
     cst_GENERIC_SFXARGS(n, cst_nprint_, assert(false), s);
+}
+void cst_free_node(cst_Node* n) {
+    cst_GENERIC_NOARGS(n, cst_nfree_, assert(false));
+    free(n->val);
 }
