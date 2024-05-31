@@ -198,3 +198,115 @@ typedef Cst__Types__Class cst_nClass;
     realloc(r->nodes, sizeof(cst_Node) * ++r->n_nodes); \
     r->nodes[r->n_nodes-1] = n; \
 } while(0)
+
+#define cst_GENERIC_PFXARGS(n, f_prefix, on_default, ...) \
+    switch ((n)->node_case) { \
+        case cst_NTYPE_Entrypoint: f_prefix##Entrypoint(cst_NODECAST(n, Entrypoint), __VA_ARGS__)); break; \
+        case cst_NTYPE_ExtraData: f_prefix##ExtraData(cst_NODECAST(n, ExtraData), __VA_ARGS__)); break; \
+        case cst_NTYPE_Block: f_prefix##Block(cst_NODECAST(n, Block), __VA_ARGS__)); break; \
+        case cst_NTYPE_Type: f_prefix##Type(cst_NODECAST(n, Type), __VA_ARGS__)); break; \
+        case cst_NTYPE_Enum: f_prefix##Enum(cst_NODECAST(n, Enum), __VA_ARGS__)); break; \
+        case cst_NTYPE_Struct: f_prefix##Struct(cst_NODECAST(n, Struct), __VA_ARGS__)); break; \
+        case cst_NTYPE_StructEnum: f_prefix##StructEnum(cst_NODECAST(n, StructEnum), __VA_ARGS__)); break; \
+        case cst_NTYPE_Class: f_prefix##Class(cst_NODECAST(n, Class), __VA_ARGS__)); break; \
+        case cst_NTYPE_Identifier: f_prefix##Identifier(cst_NODECAST(n, Identifier), __VA_ARGS__)); break; \
+        case cst_NTYPE_Bool: f_prefix##Bool(cst_NODECAST(n, Bool), __VA_ARGS__)); break; \
+        case cst_NTYPE_Integer: f_prefix##Integer(cst_NODECAST(n, Integer), __VA_ARGS__)); break; \
+        case cst_NTYPE_Float: f_prefix##Float(cst_NODECAST(n, Float), __VA_ARGS__)); break; \
+        case cst_NTYPE_Char: f_prefix##Char(cst_NODECAST(n, Char), __VA_ARGS__)); break; \
+        case cst_NTYPE_Bytes: f_prefix##Bytes(cst_NODECAST(n, Bytes), __VA_ARGS__)); break; \
+        case cst_NTYPE_String: f_prefix##String(cst_NODECAST(n, String), __VA_ARGS__)); break; \
+        case cst_NTYPE_UnaryOp: f_prefix##UnaryOp(cst_NODECAST(n, UnaryOp), __VA_ARGS__)); break; \
+        case cst_NTYPE_BinaryOp: f_prefix##BinaryOp(cst_NODECAST(n, BinaryOp), __VA_ARGS__)); break; \
+        case cst_NTYPE_TernaryOp: f_prefix##TernaryOp(cst_NODECAST(n, TernaryOp), __VA_ARGS__)); break; \
+        case cst_NTYPE_Attribute: f_prefix##Attribute(cst_NODECAST(n, Attribute), __VA_ARGS__)); break; \
+        case cst_NTYPE_Subscript: f_prefix##Subscript(cst_NODECAST(n, Subscript), __VA_ARGS__)); break; \
+        case cst_NTYPE_Invokation: f_prefix##Invokation(cst_NODECAST(n, Invokation), __VA_ARGS__)); break; \
+        case cst_NTYPE_ProcExpr: f_prefix##ProcExpr(cst_NODECAST(n, ProcExpr), __VA_ARGS__)); break; \
+        case cst_NTYPE_ProcStmt: f_prefix##ProcStmt(cst_NODECAST(n, ProcStmt), __VA_ARGS__)); break; \
+        case cst_NTYPE_If: f_prefix##If(cst_NODECAST(n, If), __VA_ARGS__)); break; \
+        case cst_NTYPE_ElIf: f_prefix##ElIf(cst_NODECAST(n, ElIf), __VA_ARGS__)); break; \
+        case cst_NTYPE_Else: f_prefix##Else(cst_NODECAST(n, Else), __VA_ARGS__)); break; \
+        case cst_NTYPE_For: f_prefix##For(cst_NODECAST(n, For), __VA_ARGS__)); break; \
+        case cst_NTYPE_While: f_prefix##While(cst_NODECAST(n, While), __VA_ARGS__)); break; \
+        case cst_NTYPE_Declaration: f_prefix##Declaration(cst_NODECAST(n, Declaration), __VA_ARGS__)); break; \
+        case cst_NTYPE_Assignment: f_prefix##Assignment(cst_NODECAST(n, Assignment), __VA_ARGS__)); break; \
+        case cst_NTYPE_Return: f_prefix##Return(cst_NODECAST(n, Return), __VA_ARGS__)); break; \
+        case cst_NTYPE_Pass: f_prefix##Pass(cst_NODECAST(n, Pass), __VA_ARGS__)); break; \
+        case cst_NTYPE_FlowCtl: f_prefix##FlowCtl(cst_NODECAST(n, FlowCtl), __VA_ARGS__)); break; \
+        default: on_default; \
+    }
+#define cst_GENERIC_SFXARGS(n, f_prefix, on_default, ...) \
+    switch ((n)->node_case) { \
+        case cst_NTYPE_Entrypoint: f_prefix##Entrypoint(__VA_ARGS__, cst_NODECAST(n, Entrypoint)); break; \
+        case cst_NTYPE_ExtraData: f_prefix##ExtraData(__VA_ARGS__, cst_NODECAST(n, ExtraData)); break; \
+        case cst_NTYPE_Block: f_prefix##Block(__VA_ARGS__, cst_NODECAST(n, Block)); break; \
+        case cst_NTYPE_Type: f_prefix##Type(__VA_ARGS__, cst_NODECAST(n, Type)); break; \
+        case cst_NTYPE_Enum: f_prefix##Enum(__VA_ARGS__, cst_NODECAST(n, Enum)); break; \
+        case cst_NTYPE_Struct: f_prefix##Struct(__VA_ARGS__, cst_NODECAST(n, Struct)); break; \
+        case cst_NTYPE_StructEnum: f_prefix##StructEnum(__VA_ARGS__, cst_NODECAST(n, StructEnum)); break; \
+        case cst_NTYPE_Class: f_prefix##Class(__VA_ARGS__, cst_NODECAST(n, Class)); break; \
+        case cst_NTYPE_Identifier: f_prefix##Identifier(__VA_ARGS__, cst_NODECAST(n, Identifier)); break; \
+        case cst_NTYPE_Bool: f_prefix##Bool(__VA_ARGS__, cst_NODECAST(n, Bool)); break; \
+        case cst_NTYPE_Integer: f_prefix##Integer(__VA_ARGS__, cst_NODECAST(n, Integer)); break; \
+        case cst_NTYPE_Float: f_prefix##Float(__VA_ARGS__, cst_NODECAST(n, Float)); break; \
+        case cst_NTYPE_Char: f_prefix##Char(__VA_ARGS__, cst_NODECAST(n, Char)); break; \
+        case cst_NTYPE_Bytes: f_prefix##Bytes(__VA_ARGS__, cst_NODECAST(n, Bytes)); break; \
+        case cst_NTYPE_String: f_prefix##String(__VA_ARGS__, cst_NODECAST(n, String)); break; \
+        case cst_NTYPE_UnaryOp: f_prefix##UnaryOp(__VA_ARGS__, cst_NODECAST(n, UnaryOp)); break; \
+        case cst_NTYPE_BinaryOp: f_prefix##BinaryOp(__VA_ARGS__, cst_NODECAST(n, BinaryOp)); break; \
+        case cst_NTYPE_TernaryOp: f_prefix##TernaryOp(__VA_ARGS__, cst_NODECAST(n, TernaryOp)); break; \
+        case cst_NTYPE_Attribute: f_prefix##Attribute(__VA_ARGS__, cst_NODECAST(n, Attribute)); break; \
+        case cst_NTYPE_Subscript: f_prefix##Subscript(__VA_ARGS__, cst_NODECAST(n, Subscript)); break; \
+        case cst_NTYPE_Invokation: f_prefix##Invokation(__VA_ARGS__, cst_NODECAST(n, Invokation)); break; \
+        case cst_NTYPE_ProcExpr: f_prefix##ProcExpr(__VA_ARGS__, cst_NODECAST(n, ProcExpr)); break; \
+        case cst_NTYPE_ProcStmt: f_prefix##ProcStmt(__VA_ARGS__, cst_NODECAST(n, ProcStmt)); break; \
+        case cst_NTYPE_If: f_prefix##If(__VA_ARGS__, cst_NODECAST(n, If)); break; \
+        case cst_NTYPE_ElIf: f_prefix##ElIf(__VA_ARGS__, cst_NODECAST(n, ElIf)); break; \
+        case cst_NTYPE_Else: f_prefix##Else(__VA_ARGS__, cst_NODECAST(n, Else)); break; \
+        case cst_NTYPE_For: f_prefix##For(__VA_ARGS__, cst_NODECAST(n, For)); break; \
+        case cst_NTYPE_While: f_prefix##While(__VA_ARGS__, cst_NODECAST(n, While)); break; \
+        case cst_NTYPE_Declaration: f_prefix##Declaration(__VA_ARGS__, cst_NODECAST(n, Declaration)); break; \
+        case cst_NTYPE_Assignment: f_prefix##Assignment(__VA_ARGS__, cst_NODECAST(n, Assignment)); break; \
+        case cst_NTYPE_Return: f_prefix##Return(__VA_ARGS__, cst_NODECAST(n, Return)); break; \
+        case cst_NTYPE_Pass: f_prefix##Pass(__VA_ARGS__, cst_NODECAST(n, Pass)); break; \
+        case cst_NTYPE_FlowCtl: f_prefix##FlowCtl(__VA_ARGS__, cst_NODECAST(n, FlowCtl)); break; \
+        default: on_default; \
+    }
+#define cst_GENERIC_NOARGS(n, f_prefix, on_default) \
+    switch ((n)->node_case) { \
+        case cst_NTYPE_Entrypoint: f_prefix##Entrypoint(cst_NODECAST(n, Entrypoint)); break; \
+        case cst_NTYPE_ExtraData: f_prefix##ExtraData(cst_NODECAST(n, ExtraData)); break; \
+        case cst_NTYPE_Block: f_prefix##Block(cst_NODECAST(n, Block)); break; \
+        case cst_NTYPE_Type: f_prefix##Type(cst_NODECAST(n, Type)); break; \
+        case cst_NTYPE_Enum: f_prefix##Enum(cst_NODECAST(n, Enum)); break; \
+        case cst_NTYPE_Struct: f_prefix##Struct(cst_NODECAST(n, Struct)); break; \
+        case cst_NTYPE_StructEnum: f_prefix##StructEnum(cst_NODECAST(n, StructEnum)); break; \
+        case cst_NTYPE_Class: f_prefix##Class(cst_NODECAST(n, Class)); break; \
+        case cst_NTYPE_Identifier: f_prefix##Identifier(cst_NODECAST(n, Identifier)); break; \
+        case cst_NTYPE_Bool: f_prefix##Bool(cst_NODECAST(n, Bool)); break; \
+        case cst_NTYPE_Integer: f_prefix##Integer(cst_NODECAST(n, Integer)); break; \
+        case cst_NTYPE_Float: f_prefix##Float(cst_NODECAST(n, Float)); break; \
+        case cst_NTYPE_Char: f_prefix##Char(cst_NODECAST(n, Char)); break; \
+        case cst_NTYPE_Bytes: f_prefix##Bytes(cst_NODECAST(n, Bytes)); break; \
+        case cst_NTYPE_String: f_prefix##String(cst_NODECAST(n, String)); break; \
+        case cst_NTYPE_UnaryOp: f_prefix##UnaryOp(cst_NODECAST(n, UnaryOp)); break; \
+        case cst_NTYPE_BinaryOp: f_prefix##BinaryOp(cst_NODECAST(n, BinaryOp)); break; \
+        case cst_NTYPE_TernaryOp: f_prefix##TernaryOp(cst_NODECAST(n, TernaryOp)); break; \
+        case cst_NTYPE_Attribute: f_prefix##Attribute(cst_NODECAST(n, Attribute)); break; \
+        case cst_NTYPE_Subscript: f_prefix##Subscript(cst_NODECAST(n, Subscript)); break; \
+        case cst_NTYPE_Invokation: f_prefix##Invokation(cst_NODECAST(n, Invokation)); break; \
+        case cst_NTYPE_ProcExpr: f_prefix##ProcExpr(cst_NODECAST(n, ProcExpr)); break; \
+        case cst_NTYPE_ProcStmt: f_prefix##ProcStmt(cst_NODECAST(n, ProcStmt)); break; \
+        case cst_NTYPE_If: f_prefix##If(cst_NODECAST(n, If)); break; \
+        case cst_NTYPE_ElIf: f_prefix##ElIf(cst_NODECAST(n, ElIf)); break; \
+        case cst_NTYPE_Else: f_prefix##Else(cst_NODECAST(n, Else)); break; \
+        case cst_NTYPE_For: f_prefix##For(cst_NODECAST(n, For)); break; \
+        case cst_NTYPE_While: f_prefix##While(cst_NODECAST(n, While)); break; \
+        case cst_NTYPE_Declaration: f_prefix##Declaration(cst_NODECAST(n, Declaration)); break; \
+        case cst_NTYPE_Assignment: f_prefix##Assignment(cst_NODECAST(n, Assignment)); break; \
+        case cst_NTYPE_Return: f_prefix##Return(cst_NODECAST(n, Return)); break; \
+        case cst_NTYPE_Pass: f_prefix##Pass(cst_NODECAST(n, Pass)); break; \
+        case cst_NTYPE_FlowCtl: f_prefix##FlowCtl(cst_NODECAST(n, FlowCtl)); break; \
+        default: on_default; \
+    }
