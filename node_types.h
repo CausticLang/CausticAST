@@ -13,6 +13,41 @@
 
 #define cst_NTYPEIS(node, type) ((node)->node_case == cst_NTYPE_##type)
 
+#define cst_NTYPEOF(node) _Generic(node, \
+    cst_nEntrypoint*: cst_NTYPE_Entrypoint, \
+    cst_nExtraData*: cst_NTYPE_ExtraData, \
+    cst_nBlock*: cst_NTYPE_Block, \
+    cst_nType*: cst_NTYPE_Type, \
+    cst_nEnum*: cst_NTYPE_Enum, \
+    cst_nStruct*: cst_NTYPE_Struct, \
+    cst_nStructEnum*: cst_NTYPE_StructEnum, \
+    cst_nClass*: cst_NTYPE_Class, \
+    cst_nIdentifier*: cst_NTYPE_Identifier, \
+    cst_nBool*: cst_NTYPE_Bool, \
+    cst_nInteger*: cst_NTYPE_Integer, \
+    cst_nFloat*: cst_NTYPE_Float, \
+    cst_nChar*: cst_NTYPE_Char, \
+    cst_nBytes*: cst_NTYPE_Bytes, \
+    cst_nString*: cst_NTYPE_String, \
+    cst_nUnaryOp*: cst_NTYPE_UnaryOp, \
+    cst_nBinaryOp*: cst_NTYPE_BinaryOp, \
+    cst_nTernaryOp*: cst_NTYPE_TernaryOp, \
+    cst_nAttribute*: cst_NTYPE_Attribute, \
+    cst_nSubscript*: cst_NTYPE_Subscript, \
+    cst_nInvokation*: cst_NTYPE_Invokation, \
+    cst_nProcExpr*: cst_NTYPE_ProcExpr, \
+    cst_nProcStmt*: cst_NTYPE_ProcStmt, \
+    cst_nIf*: cst_NTYPE_If, \
+    cst_nElIf*: cst_NTYPE_ElIf, \
+    cst_nElse*: cst_NTYPE_Else, \
+    cst_nFor*: cst_NTYPE_For, \
+    cst_nWhile*: cst_NTYPE_While, \
+    cst_nDeclaration*: cst_NTYPE_Declaration, \
+    cst_nAssignment*: cst_NTYPE_Assignment, \
+    cst_nReturn*: cst_NTYPE_Return, \
+    cst_nPass*: cst_NTYPE_Pass, \
+    cst_nFlowCtl*: cst_NTYPE_FlowCtl)
+
 #define cst_NTYPE_Entrypoint CST__NODE__NODE_ENTRYPOINT
 #define cst_NTYPE_ExtraData CST__NODE__NODE_EXTRADATA
 #define cst_NTYPE_Block CST__NODE__NODE_BLOCK
