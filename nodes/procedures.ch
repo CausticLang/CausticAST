@@ -82,7 +82,7 @@ _cst_CREATE_NODE_FUNCS(
                      "         ->type[noderef]: %u\n"
                      "         ->name[noderef]: %u\n"
                      "         ->val[noderef]:  %u\n", i, n->params[i]->param_type, n->params[i]->type, n->params[i]->name, n->params[i]->val);
-      fprintf(s, " - body[noderef]:  %u\n"); },
+      fprintf(s, " - body[noderef]:  %u\n", n->body); },
     { n->name = name; n->rtype = rtype;
       n->n_params = 0; n->params = NULL;
       n->body = body; }, PROCEDURES__PROC_STMT,
