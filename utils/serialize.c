@@ -43,13 +43,12 @@ size_t cst_serialize(uint8_t** data, cst_Root* root) {
 cst_Root* cst_deserialize_from(FILE* stream) {
     uint8_t* data = NULL;
     size_t len = 0;
-    uint8_t buf[cst_serialize_DESERIALIZE_FROM_BUFF_SIZE];
-    while (fgets(buf, cst_serialize_DESERIALIZE_FROM_BUFF_SIZE, stream) != NULL) {
-        data = realloc(data, sizeof(uint8_t) * (len + cst_serialize_DESERIALIZE_FROM_BUFF_SIZE));
-        memcpy(data + (sizeof(uint8_t) * len), buf, cst_serialize_DESERIALIZE_FROM_BUFF_SIZE);
-        len += cst_serialize_DESERIALIZE_FROM_BUFF_SIZE;
+    while (!feof(stream)) {
+        data = realloc(data, (len + cst_serialize_DESERIALIZE_FROM_BUFF_SIZE) * sizeof(uint8_t));
+        len += fread(data + len, sizeof(uint8_t), cst_serialize_DESERIALIZE_FROM_BUFF_SIZE, stream);
     }
-    cst_Root* root = cst_deserialize(data, len);
+    data = realloc(data, len * sizeof(uint8_t)); // return unused memory earlier
+    cst_Root* root = cst__root__unpack(NULL, len, data);
     free(data);
     return root;
 }
