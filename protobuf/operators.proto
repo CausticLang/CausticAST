@@ -19,7 +19,7 @@ enum BinaryOpType {
     // Comparison and logic
     EQ = 14; NE = 15; IS = 16; ISNT = 17; LT = 18; LE = 19; GT = 20; GE = 21;
     NULLCOALESCING = 22;
-    LOCAND = 23; LOGOR = 24; LOGXOR = 25;
+    LOGAND = 23; LOGOR = 24; LOGXOR = 25;
     // Bitwise
     BITAND = 26; BITOR = 27; BITXOR = 28;
     LSHIFT = 29; RSHIFT = 30;
