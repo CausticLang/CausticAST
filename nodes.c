@@ -10,10 +10,12 @@
 
 #define _cst_NODES_IS_HEADER 0
 #define _cst_CREATE_NODE_FUNCS_(name, free_body, print_body) \
-    cst_Node* cst_binit_##name(cst_Node* base, cst_n##name* n) { \
+    cst_Node* cst_binit_##name(cst_Node* base, cst_n##name* n, uint32_t pstart, uint32_t pend, uint32_t lno, uint32_t cno) { \
         *base = (cst_Node)cst_EMPTYNODE; \
         base->val = (Cst__DummyEmpty*)n; \
         base->node_case = cst_NTYPE_##name; \
+        base->pos_start = pstart; base->pos_end = pend; \
+        base->lineno = lno; base->colno = cno; \
     } \
     void cst_nfree_##name(cst_n##name* n) free_body; \
     void cst_nprint_##name(FILE* s, cst_n##name* n) { \
