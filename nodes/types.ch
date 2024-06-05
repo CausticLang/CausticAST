@@ -110,7 +110,7 @@ _cst_CREATE_NODE_FUNCS(
                  " - members:\n", n->name, n->extends, n->n_members);
       for (size_t i = 0; i < n->n_members; i++) {
           fprintf(s, "   - %04zu->is_static[bool]: %u\n"
-                     "         ->val_case:        %d\n", n->members[i]->is_static, n->members[i]->val_case);
+                     "         ->val_case:        %d\n", i, n->members[i]->is_static, n->members[i]->val_case);
           switch (n->members[i]->val_case) {
               case cst_CLASS_MEMBER:
                   fprintf(s, "         ->{member}->type[noderef]: %u\n"

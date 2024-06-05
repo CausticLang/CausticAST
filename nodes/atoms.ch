@@ -28,7 +28,7 @@ _cst_CREATE_NODE_FUNCS(
     Float,
     { free(n->integer); free(n->fractional); },
     { fprintf(s, " - integer[char*]:   %s\n"
-                 " - fractional[uint]: %u\n"
+                 " - fractional[uint]: %s\n"
                  " - exp[int]:         %d\n", n->integer, n->fractional, n->exp); },
     { n->integer = integer; n->fractional = fractional; n->exp = exp; }, ATOMS__FLOAT, char* integer, char* fractional, int32_t exp
 );
@@ -42,14 +42,14 @@ _cst_CREATE_NODE_FUNCS(
 _cst_CREATE_NODE_FUNCS(
     Bytes,
     { free(n->val); },
-    { fprintf(s, " - val[char*]: %s\n",
+    { fprintf(s, " - val[char*]: %s\n"
                  " - raw[bool]:  %d\n", n->val, n->raw); },
     { n->val = val; n->raw = raw; }, ATOMS__BYTES, char* val, bool raw
 );
 _cst_CREATE_NODE_FUNCS(
     String,
     { free(n->val); },
-    { fprintf(s, " - val[char*]: %s\n",
+    { fprintf(s, " - val[char*]: %s\n"
                  " - raw[bool]:  %d\n", n->val, n->raw); },
     { n->val = val; n->raw = raw; }, ATOMS__STRING, char* val, bool raw
 );
