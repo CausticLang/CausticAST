@@ -16,6 +16,7 @@
         base->node_case = cst_NTYPE_##name; \
         base->pos_start = pstart; base->pos_end = pend; \
         base->lineno = lno; base->colno = cno; \
+        return base; \
     } \
     void cst_nfree_##name(cst_n##name* n) free_body; \
     void cst_nprint_##name(FILE* s, cst_n##name* n) { \
