@@ -27,10 +27,10 @@ _cst_CREATE_NODE_FUNCS(
       free(n->members); },
     { fprintf(s, " - name[noderef]:    %u\n"
                  " - extends[noderef]: %u\n"
-                 " - n_members[uint]:  %u\n"
+                 " - n_members[ulong]: %zu\n"
                  " - members:\n", n->name, n->extends, n->n_members);
       for (size_t i = 0; i < n->n_members; i++)
-          fprintf(s, "   - %04u->name[noderef]: %u\n"
+          fprintf(s, "   - %04zu->name[noderef]: %u\n"
                      "         ->val[noderef]:  %u\n", i, n->members[i]->name, n->members[i]->val); },
     { n->name = name; n->extends = extends; n->members = NULL; n->n_members = 0; },
     TYPES__ENUM, cst_index name, cst_index extends
@@ -52,10 +52,10 @@ _cst_CREATE_NODE_FUNCS(
       free(n->members); },
     { fprintf(s, " - name[noderef]:    %u\n"
                  " - extends[noderef]: %u\n"
-                 " - n_members[uint]:  %u\n"
+                 " - n_members[ulong]: %zu\n"
                  " - members:\n", n->name, n->extends, n->n_members);
       for (size_t i = 0; i < n->n_members; i++)
-          fprintf(s, "   - %04u->type[noderef]: %u\n"
+          fprintf(s, "   - %04zu->type[noderef]: %u\n"
                      "         ->name[noderef]: %u\n"
                      "         ->val[noderef]:  %u\n", i, n->members[i]->type, n->members[i]->name, n->members[i]->val); },
     { n->name = name; n->extends = extends; n->members = NULL; n->n_members = 0; },
@@ -76,10 +76,10 @@ _cst_CREATE_NODE_FUNCS(
     { free(n->members); },
     { fprintf(s, " - name[noderef]:    %u\n"
                  " - extends[noderef]: %u\n"
-                 " - n_members[uint]:  %u\n"
+                 " - n_members[ulong]: %zu\n"
                  " - members[noderef*]:\n", n->name, n->extends, n->n_members);
       for (size_t i = 0; i < n->n_members; i++)
-          fprintf(s, "   - %04u: %u\n", i, n->members[i]); },
+          fprintf(s, "   - %04zu: %u\n", i, n->members[i]); },
     { n->name = name; n->extends = extends; n->members = NULL; n->n_members = 0; },
     TYPES__STRUCT_ENUM, cst_index name, cst_index extends
 );
@@ -106,10 +106,10 @@ _cst_CREATE_NODE_FUNCS(
       free(n->members); },
     { fprintf(s, " - name[noderef]:    %u\n"
                  " - extends[noderef]: %u\n"
-                 " - n_members[uint]:  %u\n"
+                 " - n_members[ulong]: %zu\n"
                  " - members:\n", n->name, n->extends, n->n_members);
       for (size_t i = 0; i < n->n_members; i++) {
-          fprintf(s, "   - %04u->is_static[bool]: %u\n"
+          fprintf(s, "   - %04zu->is_static[bool]: %u\n"
                      "         ->val_case:        %d\n", n->members[i]->is_static, n->members[i]->val_case);
           switch (n->members[i]->val_case) {
               case cst_CLASS_MEMBER:

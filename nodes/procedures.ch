@@ -11,14 +11,14 @@ _cst_CREATE_NODE_FUNCS(
       for (size_t i = 0; i < n->n_kwargs; i++)
           free(n->kwargs[i]);
       free(n->kwargs); },
-    { fprintf(s, " - proc[noderef]:  %u\n"
-                 " - n_args[uint]:   %u\n"
+    { fprintf(s, " - proc[noderef]:   %u\n"
+                 " - n_args[ulong]:   %zu\n"
                  " - args[noderef*]:\n", n->proc, n->n_args);
       for (size_t i = 0; i < n->n_args; i++)
-          fprintf(s, "   - %04u: %u\n", i, n->args[i]);
-      fprintf(s, " - n_kwargs[uint]: %u\n - kwargs:\n", n->n_kwargs);
+          fprintf(s, "   - %04zu: %u\n", i, n->args[i]);
+      fprintf(s, " - n_kwargs[ulong]: %zu\n - kwargs:\n", n->n_kwargs);
       for (size_t i = 0; i < n->n_kwargs; i++)
-          fprintf(s, "   - %04u->key: %u\n"
+          fprintf(s, "   - %04zu->key: %u\n"
                      "         ->val: %u\n", i, n->kwargs[i]->key, n->kwargs[i]->val); },
     { n->proc = proc; n->n_args = 0; n->args = NULL; n->n_kwargs = 0; n->kwargs = NULL; }, PROCEDURES__INVOKATION, cst_index proc
 );
@@ -47,15 +47,15 @@ _cst_CREATE_NODE_FUNCS(
     { for (size_t i = 0; i < n->n_params; i++)
           free(n->params[i]);
       free(n->params); },
-    { fprintf(s, " - rtype[noderef]: %u\n"
-                 " - n_params[uint]: %u\n"
+    { fprintf(s, " - rtype[noderef]:  %u\n"
+                 " - n_params[ulong]: %zu\n"
                  " - params:\n", n->rtype, n->n_params);
       for (size_t i = 0; i < n->n_params; i++)
-          fprintf(s, "   - %04u->param_type:    %u\n"
+          fprintf(s, "   - %04zu->param_type:    %u\n"
                      "         ->type[noderef]: %u\n"
                      "         ->name[noderef]: %u\n"
                      "         ->val[noderef]:  %u\n", i, n->params[i]->param_type, n->params[i]->type, n->params[i]->name, n->params[i]->val);
-      fprintf(s, " - body[noderef]:  %u\n", n->body); },
+      fprintf(s, " - body[noderef]:   %u\n", n->body); },
     { n->rtype = rtype; n->n_params = 0; n->params = NULL; n->body = body; },
     PROCEDURES__PROC_EXPR, cst_index rtype, cst_index body
 );
@@ -74,15 +74,15 @@ _cst_CREATE_NODE_FUNCS(
     { for (size_t i = 0; i < n->n_params; i++)
           free(n->params[i]);
       free(n->params); },
-    { fprintf(s, " - name[noderef]:  %u\n"
-                 " - rtype[noderef]: %u\n"
-                 " - n_params[uint]: %u\n", n->name, n->rtype, n->n_params);
+    { fprintf(s, " - name[noderef]:   %u\n"
+                 " - rtype[noderef]:  %u\n"
+                 " - n_params[ulong]: %zu\n", n->name, n->rtype, n->n_params);
       for (size_t i = 0; i < n->n_params; i++)
-          fprintf(s, "   - %04u->param_type:    %u\n"
+          fprintf(s, "   - %04zu->param_type:    %u\n"
                      "         ->type[noderef]: %u\n"
                      "         ->name[noderef]: %u\n"
                      "         ->val[noderef]:  %u\n", i, n->params[i]->param_type, n->params[i]->type, n->params[i]->name, n->params[i]->val);
-      fprintf(s, " - body[noderef]:  %u\n", n->body); },
+      fprintf(s, " - body[noderef]:   %u\n", n->body); },
     { n->name = name; n->rtype = rtype;
       n->n_params = 0; n->params = NULL;
       n->body = body; }, PROCEDURES__PROC_STMT,
