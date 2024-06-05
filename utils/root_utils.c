@@ -4,6 +4,7 @@
 #include "root_utils.h"
 
 #include <malloc.h>
+#include <string.h>
 
 // includes non-essential utilities for working with roots
 
