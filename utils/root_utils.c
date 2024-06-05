@@ -10,7 +10,7 @@
 
 cst_Root* cst_root_extend(cst_Root* dst, cst_Root* src) {
     if (!src->n_nodes) return dst;
-    dst->nodes = realloc(dst->nodes, (dst->n_nodes + src->n_nodes) * sizeof(cst_Node*));
+    dst->nodes = (cst_Node**)realloc(dst->nodes, (dst->n_nodes + src->n_nodes) * sizeof(cst_Node*));
     memcpy(dst->nodes + (dst->n_nodes * sizeof(cst_Node*)), src->nodes, src->n_nodes * sizeof(cst_Node*));
     dst->n_nodes += src->n_nodes;
     return dst;
@@ -28,12 +28,12 @@ cst_Node* cst_root_pop_at(cst_Root* root, cst_index node) {
         root->nodes = NULL;
         return target;
     }
-    cst_Node** new = malloc(--root->n_nodes * sizeof(cst_Node*));
+    cst_Node** new_ = (cst_Node**)malloc(--root->n_nodes * sizeof(cst_Node*));
     size_t noffset = node * sizeof(cst_Node*);
-    memcpy(new, root->nodes, noffset);
-    memcpy(new + noffset, root->nodes + noffset, (root->n_nodes * sizeof(cst_Node*)) - noffset);
+    memcpy(new_, root->nodes, noffset);
+    memcpy(new_ + noffset, root->nodes + noffset, (root->n_nodes * sizeof(cst_Node*)) - noffset);
     free(root->nodes);
-    root->nodes = new;
+    root->nodes = new_;
     return target;
 }
 

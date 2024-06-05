@@ -34,7 +34,7 @@ size_t cst_serialize(uint8_t** data, cst_Root* root) {
     uint8_t pad[cst_serialize_PAD_SIZE];
     ProtobufCBufferSimple buf = PROTOBUF_C_BUFFER_SIMPLE_INIT(pad);
     cst__root__pack_to_buffer(root, &(buf.base));
-    *data = realloc(*data, buf.len * sizeof(uint8_t));
+    *data = (uint8_t*)realloc(*data, buf.len * sizeof(uint8_t));
     memcpy(*data, buf.data, buf.len);
     return buf.len;
 }
@@ -44,10 +44,10 @@ cst_Root* cst_deserialize_from(FILE* stream) {
     uint8_t* data = NULL;
     size_t len = 0;
     while (!feof(stream)) {
-        data = realloc(data, (len + cst_serialize_DESERIALIZE_FROM_BUFF_SIZE) * sizeof(uint8_t));
+        data = (uint8_t*)realloc(data, (len + cst_serialize_DESERIALIZE_FROM_BUFF_SIZE) * sizeof(uint8_t));
         len += fread(data + len, sizeof(uint8_t), cst_serialize_DESERIALIZE_FROM_BUFF_SIZE, stream);
     }
-    data = realloc(data, len * sizeof(uint8_t)); // return unused memory earlier
+    data = (uint8_t*)realloc(data, len * sizeof(uint8_t)); // return unused memory earlier
     cst_Root* root = cst__root__unpack(NULL, len, data);
     free(data);
     return root;

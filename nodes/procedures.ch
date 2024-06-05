@@ -28,7 +28,7 @@ void cst_nInvokation_addarg(cst_nInvokation* n, cst_index arg)
     ;
 #else
     {
-        n->args = realloc(n->args, sizeof(cst_index) * ++n->n_args);
+        n->args = (cst_index*)realloc(n->args, sizeof(cst_index) * ++n->n_args);
         n->args[n->n_args-1] = arg;
     }
 #endif
@@ -37,7 +37,7 @@ void cst_nInvokation_addkwarg(cst_nInvokation* n, cst_ProcKwarg* kwarg)
     ;
 #else
     {
-        n->kwargs = realloc(n->kwargs, sizeof(cst_ProcKwarg*) * ++n->n_kwargs);
+        n->kwargs = (cst_ProcKwarg**)realloc(n->kwargs, sizeof(cst_ProcKwarg*) * ++n->n_kwargs);
         n->kwargs[n->n_kwargs-1] = kwarg;
     }
 #endif
@@ -64,7 +64,7 @@ void cst_nProcExpr_addparam(cst_nProcExpr* n, cst_ProcParam* param)
     ;
 #else
     {
-        n->params = realloc(n->params, sizeof(cst_ProcParam*) * ++n->n_params);
+        n->params = (cst_nProcParam**)realloc(n->params, sizeof(cst_ProcParam*) * ++n->n_params);
         n->params[n->n_params-1] = param;
     }
 #endif
@@ -93,7 +93,7 @@ void cst_nProcStmt_addparam(cst_nProcStmt* n, cst_ProcParam* param)
     ;
 #else
     {
-        n->params = realloc(n->params, sizeof(cst_ProcParam*) * ++n->n_params);
+        n->params = (cst_ProcParam**)realloc(n->params, sizeof(cst_ProcParam*) * ++n->n_params);
         n->params[n->n_params-1] = param;
     }
 #endif

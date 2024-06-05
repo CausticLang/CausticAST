@@ -25,7 +25,7 @@ void cst_nBlock_addnode(cst_nBlock* block, cst_index node)
     ;
 #else
     {
-        block->nodes = realloc(block->nodes, sizeof(cst_index) * ++block->n_nodes);
+        block->nodes = (cst_index*)realloc(block->nodes, sizeof(cst_index) * ++block->n_nodes);
         block->nodes[block->n_nodes-1] = node;
     }
 #endif

@@ -40,7 +40,7 @@ void cst_nEnum_addmember(cst_nEnum* node, cst_nEnum_Member* member)
     ;
 #else
     {
-        node->members = realloc(node->members, sizeof(cst_nEnum_Member*) * ++node->n_members);
+        node->members = (cst_nEnum_Member**)realloc(node->members, sizeof(cst_nEnum_Member*) * ++node->n_members);
         node->members[node->n_members-1] = member;
     }
 #endif
@@ -66,7 +66,7 @@ void cst_nStruct_addmember(cst_nStruct* node, cst_nStruct_Member* member)
     ;
 #else
     {
-        node->members = realloc(node->members, sizeof(cst_nStruct_Member*) * ++node->n_members);
+        node->members = (cst_nStruct_Member**)realloc(node->members, sizeof(cst_nStruct_Member*) * ++node->n_members);
         node->members[node->n_members-1] = member;
     }
 #endif
@@ -88,7 +88,7 @@ void cst_nStructEnum_addmember(cst_nStructEnum* node, cst_index member)
     ;
 #else
     {
-        node->members = realloc(node->members, sizeof(cst_index) * ++node->n_members);
+        node->members = (cst_index*)realloc(node->members, sizeof(cst_index) * ++node->n_members);
         node->members[node->n_members-1] = member;
     }
 #endif
@@ -131,7 +131,7 @@ void cst_nClass_addmember(cst_nClass* node, cst_nClass_Member* member)
     ;
 #else
     {
-        node->members = realloc(node->members, sizeof(cst_nClass_Member*) * ++node->n_members);
+        node->members = (cst_nClass_Member**)realloc(node->members, sizeof(cst_nClass_Member*) * ++node->n_members);
         node->members[node->n_members-1] = member;
     }
 #endif
