@@ -1,9 +1,3 @@
-syntax = "proto2";
-
-option optimize_for = LITE_RUNTIME;
-
-package cst.statements;
-
 // Conditionals
 message If {
     required uint32 condition = 1;

@@ -1,9 +1,3 @@
-syntax = "proto2";
-
-option optimize_for = LITE_RUNTIME;
-
-package cst.procedures;
-
 message InvokationKwarg {
     required uint32 key = 1;
     required uint32 val = 2;

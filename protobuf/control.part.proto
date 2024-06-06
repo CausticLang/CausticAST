@@ -1,9 +1,3 @@
-syntax = "proto2";
-
-option optimize_for = LITE_RUNTIME;
-
-package cst.control;
-
 message Entrypoint {
     required uint32 node = 1;
     required uint32 eof_pos = 2;

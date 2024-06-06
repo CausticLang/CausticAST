@@ -1,9 +1,3 @@
-syntax = "proto2";
-
-option optimize_for = LITE_RUNTIME;
-
-package cst.operators;
-
 enum UnaryOpType {
     INVALID_UOP = 0;
     // Prefix

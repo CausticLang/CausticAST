@@ -1,9 +1,3 @@
-syntax = "proto2";
-
-option optimize_for = LITE_RUNTIME;
-
-package cst.atoms;
-
 message Identifier {
     required string val = 1;
 }
