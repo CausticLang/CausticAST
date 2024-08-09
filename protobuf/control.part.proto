@@ -4,6 +4,7 @@ message Entrypoint {
 }
 message Block {
     repeated uint32 nodes = 1;
+    required uint32 arena = 2 [default = 0];
 }
 
 message ExtraData {

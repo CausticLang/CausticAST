@@ -17,8 +17,9 @@ _cst_CREATE_NODE_FUNCS_NIP(
     { fputs(" - nodes[noderef*]:\n", s);
       for (cst_index i = 0; i < n->n_nodes; i++)
           fprintf(s, "   - %.04u: %u\n", i, n->nodes[i]);
-      fprintf(s, " - n_nodes[ulong]   %zu\n", n->n_nodes); },
-    { n->nodes = NULL; n->n_nodes = 0; }, CONTROL__BLOCK
+      fprintf(s, " - n_nodes[ulong]:  %zu\n"
+                 " - arena[noderef]:  %u\n", n->n_nodes, n->arena); },
+    { n->nodes = NULL; n->n_nodes = 0; n->arena = 0; }, CONTROL__BLOCK
 );
 void cst_nBlock_addnode(cst_nBlock* block, cst_index node)
 #if _cst_NODES_IS_HEADER
